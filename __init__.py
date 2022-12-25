@@ -48,6 +48,8 @@ HERE       = os.path.dirname(__file__)
 COMPONENTS = os.path.join(HERE, "components")
 
 register_component("app.js",        HERE)
+register_component("SourceView.js", COMPONENTS)
 from .pages import index
 from .pages import page1
 from .pages import page2
+from .pages import collection
