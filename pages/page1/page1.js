@@ -11,29 +11,4 @@ var Page1 = {
   }
 };
 
-// add route and navigation entry
-
-router.addRoutes([
-  { path: '/page1', component: Page1 },
-])
-
-var groupSection = app.sections.find(function(item) {
-  return "group" in item && item.group && item.text == "Index";
-});
-if(! groupSection ) {
-  groupSection = {
-    index      : 1,
-    group      : true,
-    icon       : "home",
-    text       : "Index",
-    subsections: []
-  }
-  app.sections.push(groupSection);
-}
-
-groupSection.subsections.push({
-  icon  : "description",
-  text  : "Page1",
-  path  : "/page1",
-  index : 2
-});
+Navigation.add_page("Index", "description", "Page1", "/page1", Page1);
