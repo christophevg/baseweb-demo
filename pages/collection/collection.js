@@ -31,4 +31,4 @@ var Collection = {
   }
 };
 
-Navigation.add_page("Components", "description", "CollectionView", "/collection", Collection);
+Navigation.add_page("Components", "extension", "CollectionView", "/collection", Collection);

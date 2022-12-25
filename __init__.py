@@ -42,10 +42,12 @@ def authenticator(scope, request, *args, **kwargs):
 
 add_authenticator(authenticator)
 
-from baseweb.interface import register_component
+from baseweb.interface import register_component, register_static_folder
 
 HERE       = os.path.dirname(__file__)
 COMPONENTS = os.path.join(HERE, "components")
+
+register_static_folder(os.path.join(HERE, "static"))
 
 register_component("app.js",        HERE)
 register_component("SourceView.js", COMPONENTS)

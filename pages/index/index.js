@@ -144,7 +144,7 @@ var Index = {
   }
 };
 
-Navigation.add_page("Index", "description", "Index", "/", Index);
+Navigation.add_page(null, "home", "Welcome", "/", Index, 1);
 
 // set up page specific part in the store
 

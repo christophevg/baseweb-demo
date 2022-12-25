@@ -11,4 +11,4 @@ var Page1 = {
   }
 };
 
-Navigation.add_page("Index", "description", "Page1", "/page1", Page1);
+Navigation.add_page("Pages", "description", "Page with nothing", "/page1", Page1);
