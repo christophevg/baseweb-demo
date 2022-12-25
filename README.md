@@ -18,7 +18,7 @@ Next clone the baseweb-demo repository, install the minimal requirements (basewe
 ```console
 % git clone https://github.com/christophevg/baseweb-demo
 % cat baseweb-demo/requirements.txt 
-baseweb==0.0.7
+baseweb==0.0.8
 eventlet==0.33.2
 gunicorn @ https://github.com/benoitc/gunicorn/archive/ff58e0c6da83d5520916bc4cc109a529258d76e1.zip
 % pip install -r baseweb-demo/requirements.txt
