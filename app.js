@@ -1,2 +1,3 @@
-Navigation.add_group("Pages", "layers", "Pages", 2);
-Navigation.add_group("Components", "web", "Components", 3);
+// index 1 will be added later ;-)
+Navigation.add_section({ name: "Pages",      icon: "layers", text: "Pages",      index: 2});
+Navigation.add_section({ name: "Components", icon: "web",    text: "Components", index: 3});

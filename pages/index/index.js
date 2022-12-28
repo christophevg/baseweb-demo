@@ -26,6 +26,13 @@ var Index = {
   
 </div>
 `,
+  navigation: {
+    section: null,
+    icon:    "home",
+    text:    "Welcome",
+    path:    "/",
+    index:   1
+  },
   computed: {
     isInvalid: function() {
       if( ! this.isValid ) { return true; }
@@ -144,7 +151,7 @@ var Index = {
   }
 };
 
-Navigation.add_page(null, "home", "Welcome", "/", Index, 1);
+Navigation.add(Index);
 
 // set up page specific part in the store
 

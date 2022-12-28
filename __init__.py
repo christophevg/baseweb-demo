@@ -29,6 +29,13 @@ logging.getLogger("socketio.server").setLevel(logging.WARN)
 
 logging.getLogger().handlers[0].setFormatter(formatter)
 
+from baseweb.config import app
+
+app["baseweb-demo"] = {
+  "a few" : "app specific",
+  "configuration" : "settings"
+}
+
 # import baseweb server object to expose it from this application
 from baseweb.web import server
 
@@ -53,7 +60,5 @@ register_component("app.js",        HERE)
 register_component("SourceView.js", COMPONENTS)
 register_component("logo.js",       COMPONENTS)
 
-from .pages import index
-from .pages import page1
-from .pages import page2
-from .pages import collection
+from .pages            import index, page1, page2, page3, page4
+from .pages.components import CollectionView, PageWithBanner

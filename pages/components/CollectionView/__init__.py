@@ -12,7 +12,7 @@ def random_date():
 
 from baseweb.interface import register_component
 
-register_component("collection.js", os.path.dirname(__file__))
+register_component("CollectionView.js", os.path.dirname(__file__))
 
 from flask import request
 from flask_restful import Resource

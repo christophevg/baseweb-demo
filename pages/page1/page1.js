@@ -1,14 +1,15 @@
 var Page1 = {
   template : `
-<div>
+<Page>
   <h1>Page 1</h1>
-</div>
+</Page>
 `,
-  computed: {},
-  methods: {},
-  data: function() {
-    return {}
+  navigation: {
+    section: "Pages",
+    icon:    "description",
+    text:    "Page with nothing",
+    path:    "/page1"
   }
 };
 
-Navigation.add_page("Pages", "description", "Page with nothing", "/page1", Page1);
+Navigation.add(Page1);

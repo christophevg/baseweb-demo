@@ -1,7 +1,7 @@
-var Collection = {
+var CollectionViewDemo = {
   template : `
-<div>
-  <SourceView src="/app/collection.js">
+<PageWithBanner>
+  <SourceView src="/app/CollectionView.js">
     <h1>CollectionView</h1>
     <CollectionView topic="demo" :headers="headers" resource="/api/collection"
                     id="id" :selected="model.selected" @select="select"
@@ -9,8 +9,14 @@ var Collection = {
       <div style="margin:20px" v-html="$options.filters.syntaxHighlight(model.selected, 400)"></div>
     </CollectionView>
   </SourceView>
-</div>
+</PageWithBanner>
 `,
+  navigation: {
+    section: "Components",
+    icon:     "extension",
+    text:     "CollectionView",
+    path:     "/components/CollectionView"
+  },
   methods: {
     select : function(selected) {
       this.model.selected = selected;
@@ -31,4 +37,4 @@ var Collection = {
   }
 };
 
-Navigation.add_page("Components", "extension", "CollectionView", "/collection", Collection);
+Navigation.add(CollectionViewDemo);
