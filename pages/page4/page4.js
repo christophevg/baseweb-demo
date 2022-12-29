@@ -41,12 +41,6 @@ var Page4 = {
   </v-card>     
 </Page>
 `,
-  created: function() {
-    // (re)link our "local" reactive property managing the badge
-    // it is stored in a store therefore to remain persistent across route 
-    // changes. it's a bit dirty, but it gets the job done ;-) 
-    Vue.set(Page4.navigation, "badge", this.badge);
-  },
   navigation: {
     section : "Pages",
     icon    : "description",
@@ -84,3 +78,5 @@ store.registerModule("badge", {
     }
   }
 });
+
+Vue.set(Page4.navigation, "badge", store.state.badge);
