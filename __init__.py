@@ -60,5 +60,5 @@ register_component("app.js",        HERE)
 register_component("SourceView.js", COMPONENTS)
 register_component("logo.js",       COMPONENTS)
 
-from .pages            import index, page1, page2, page3, page4
+from .pages            import index, page1, page2, page3, page4, page5
 from .pages.components import CollectionView, PageWithBanner
