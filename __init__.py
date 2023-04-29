@@ -6,6 +6,7 @@ import os
 # load the environment variables for this setup
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
+load_dotenv(find_dotenv(".env.local"))
 
 LOG_LEVEL = os.environ.get("LOG_LEVEL") or "INFO"
 
@@ -54,4 +55,5 @@ register_component("SourceView.js", COMPONENTS)
 register_component("logo.js",       COMPONENTS)
 
 from .pages            import index, page1, page2, page3, page4, page5
+from .pages            import protected_page
 from .pages.components import CollectionView, PageWithBanner
