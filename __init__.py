@@ -29,13 +29,6 @@ logging.getLogger("socketio.server").setLevel(logging.WARN)
 
 logging.getLogger().handlers[0].setFormatter(formatter)
 
-from baseweb.config import app
-
-app["baseweb-demo"] = {
-  "a few" : "app specific",
-  "configuration" : "settings"
-}
-
 # import baseweb server object to expose it from this application
 from baseweb.web import server
 
