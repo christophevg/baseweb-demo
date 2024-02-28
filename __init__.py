@@ -60,6 +60,6 @@ register_component("logo.js",       COMPONENTS)
 
 from .pages            import index, page1, page2, page3, page4, page5
 from .pages            import protected_page
-from .pages.components import CollectionView, PageWithBanner
+from .pages.components import PageWithStatus, PageWithBanner, CollectionView
 
 logger.info("✅ all systems are go!")
