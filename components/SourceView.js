@@ -17,7 +17,7 @@ Vue.component("SourceView", {
         <v-card>
           <v-card-text>
             <div style="margin:20px">
-              <div style="margin:20px" v-html="$options.filters.syntaxHighlight(model.content, 800)"></div>
+              <div style="margin:20px" v-html="$options.filters.syntaxHighlight(model.content, 800, 'javascript')"></div>
             </div>
           </v-card-text>
         </v-card>      
