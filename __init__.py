@@ -1,10 +1,14 @@
+# ruff: noqa
+
 import logging
-logger = logging.getLogger(__name__)
 
 import os
 
-# load the environment variables for this setup
 from dotenv import load_dotenv, find_dotenv
+
+logger = logging.getLogger(__name__)
+
+# load the environment variables for this setup
 load_dotenv(find_dotenv())
 load_dotenv(find_dotenv(".env.local"))
 
@@ -57,3 +61,5 @@ register_component("logo.js",       COMPONENTS)
 from .pages            import index, page1, page2, page3, page4, page5
 from .pages            import protected_page
 from .pages.components import CollectionView, PageWithBanner
+
+logger.info("✅ all systems are go!")

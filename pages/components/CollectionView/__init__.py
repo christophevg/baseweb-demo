@@ -2,6 +2,14 @@ import os
 from datetime import datetime, timedelta
 import random
 
+from baseweb.interface import register_component
+
+from flask import request
+from flask_restful import Resource
+
+from baseweb.rest     import api
+from baseweb.security import authenticated
+
 def random_date_between(start, end):
   delta = end - start
   int_delta = (delta.days * 24 * 3600) + delta.seconds
@@ -10,15 +18,7 @@ def random_date_between(start, end):
 def random_date():
   return random_date_between(datetime.now(), datetime.now()+timedelta(days=1))
 
-from baseweb.interface import register_component
-
 register_component("CollectionView.js", os.path.dirname(__file__))
-
-from flask import request
-from flask_restful import Resource
-
-from baseweb.rest     import api
-from baseweb.security import authenticated
 
 # set up an in-memory collection of random names and provide a resource to
 # access them with query arguments, emulating a MongoDB collection

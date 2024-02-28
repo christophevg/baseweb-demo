@@ -70,7 +70,6 @@ var ProtectedPage = {
       });
     },
     try_hello: function() {
-      var base_url = window.location.href.split("?")[0].split("#")[0].replace(/\/$/, "");
       oatk.http.getJSON("/api/protected/hello", function(result) {
         $("#output").text(JSON.stringify(result));
       }, function(result) {

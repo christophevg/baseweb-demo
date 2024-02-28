@@ -1,10 +1,6 @@
 import os
 
-# register the Vue component for the UI
-
 from baseweb.interface import register_component
-
-register_component("protected_page.js", os.path.dirname(__file__))
 
 # setup OATK infrastructure
 
@@ -17,6 +13,9 @@ from baseweb.config    import app
 
 import oatk.js
 from oatk import OAuthToolkit
+
+# register the Vue component for the UI
+register_component("protected_page.js", os.path.dirname(__file__))
 
 # add discovery url and client_id from env
 app["oauth"] = {
@@ -39,7 +38,7 @@ api = Api(server)
 
 # setup oatk
 auth = OAuthToolkit()
-auth.using_provider(os.environ["OAUTH_PROVIDER"]);
+auth.using_provider(os.environ["OAUTH_PROVIDER"])
 auth.with_client_id(os.environ["OAUTH_CLIENT_ID"])
 
 class HelloWorld(Resource):

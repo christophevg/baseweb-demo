@@ -34,7 +34,8 @@ var PageWitBannerDemo = {
   <v-card>
     <v-card-text>
       <div style="margin:20px">
-        <div style="margin:20px" v-html="$options.filters.syntaxHighlight(banner, 800)"></div>
+        <code>store.state.banner</code>
+        <div style="margin-top:20px" v-html="$options.filters.syntaxHighlight(banner, 800)"></div>
       </div>
     </v-card-text>
   </v-card>     

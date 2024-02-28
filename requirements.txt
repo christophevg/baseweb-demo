@@ -1,5 +1,5 @@
-baseweb==0.1.4
-eventlet==0.33.2
-gunicorn @ https://github.com/benoitc/gunicorn/archive/ff58e0c6da83d5520916bc4cc109a529258d76e1.zip
+dnspython==2.5.0  # 2.6 seems to cause timeouts in combination with eventlet
+baseweb
 oatk
-dnspython<2.0.0 # pinned due to https://github.com/eventlet/eventlet/issues/619
+eventlet
+gunicorn

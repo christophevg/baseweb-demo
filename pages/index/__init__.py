@@ -1,13 +1,8 @@
 import logging
-logger = logging.getLogger(__name__)
 
 import os
 
-# register the Vue component for the UI
-
 from baseweb.interface import register_component
-
-register_component("index.js", os.path.dirname(__file__))
 
 from flask import request
 
@@ -16,6 +11,11 @@ from flask_restful import Resource
 from baseweb.rest     import api
 from baseweb.socketio import socketio
 from baseweb.security import authenticated
+
+logger = logging.getLogger(__name__)
+
+# register the Vue component for the UI
+register_component("index.js", os.path.dirname(__file__))
 
 # log all messages both to logging infrastructure and connected clients
 
