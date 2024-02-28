@@ -23,8 +23,8 @@ var LineChartDemo = {
     <v-card>
       <v-card-text>
         <div style="margin:20px">
-          <code>data</code>
-          <div style="margin-top:20px" v-html="$options.filters.syntaxHighlight(data, 800)"></div>
+          <code>data.values</code>
+          <div style="margin-top:20px" v-html="$options.filters.syntaxHighlight(values, 800)"></div>
         </div>
       </v-card-text>
     </v-card>     
@@ -82,7 +82,7 @@ var LineChartDemo = {
     return {
       adding: false,
       toggle_label: "start",
-      data: [40, 39, 10, 40, 39, 80, 40],
+      values: [40, 39, 10, 40, 39, 80, 40],
       options: {
         legend: {
           display: true
