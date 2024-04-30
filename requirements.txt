@@ -1,5 +1,4 @@
-dnspython==2.5.0  # 2.6 seems to cause timeouts in combination with eventlet
-baseweb
+baseweb>=0.3.0
 oatk
 eventlet
 gunicorn

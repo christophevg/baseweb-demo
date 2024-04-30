@@ -1,8 +1,6 @@
-# ruff: noqa
-
 import logging
-
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv, find_dotenv
 
@@ -12,55 +10,58 @@ logger = logging.getLogger(__name__)
 load_dotenv(find_dotenv())
 load_dotenv(find_dotenv(".env.local"))
 
-LOG_LEVEL = os.environ.get("LOG_LEVEL") or "INFO"
-
 # setup logging infrastructure
 
-# logging.getLogger("urllib3").setLevel(logging.WARN)
-
+LOG_LEVEL = os.environ.get("LOG_LEVEL") or "INFO"
 FORMAT  = "[%(asctime)s] [%(name)s] [%(process)d] [%(levelname)s] %(message)s"
 DATEFMT = "%Y-%m-%d %H:%M:%S %z"
 
 logging.basicConfig(level=LOG_LEVEL, format=FORMAT, datefmt=DATEFMT)
 formatter = logging.Formatter(FORMAT, DATEFMT)
 
-# adjust gunicorn logger to global level and formatting 
+# adjust other loggers to global level and formatting 
 logging.getLogger("gunicorn.error").handlers[0].setFormatter(formatter)
 logging.getLogger("gunicorn.error").setLevel(logging.INFO)
 logging.getLogger("engineio.client").setLevel(logging.WARN)
 logging.getLogger("engineio.server").setLevel(logging.WARN)
 logging.getLogger("socketio.client").setLevel(logging.WARN)
 logging.getLogger("socketio.server").setLevel(logging.WARN)
+logging.getLogger("urllib3").setLevel(logging.WARN)
 
 logging.getLogger().handlers[0].setFormatter(formatter)
 
-# import baseweb server object to expose it from this application
-from baseweb.web import server
+# all set up, now get our server
 
-from baseweb.security import add_authenticator
+from baseweb import server
 
 def authenticator(scope, request, *args, **kwargs):
-  logger.debug("AUTH: scope:{} / request:{} / args:{} / kwargs:{}".format(
+  logger.debug("👀 scope:{} / request:{} / args:{} / kwargs:{}".format(
     scope, str(request), str(args), str(kwargs)
   ))
   return True
 
-add_authenticator(authenticator)
+server.authenticator = authenticator
 
-from baseweb.interface import register_component, register_static_folder
+@server.socketio.on("connect")
+def on_connect():
+  logger.info("connect: {0}".format(server.request.sid))
 
-HERE       = os.path.dirname(__file__)
-COMPONENTS = os.path.join(HERE, "components")
+@server.socketio.on("disconnect")
+def on_disconnect():
+  logger.info("disconnect: {0}".format(server.request.sid))
 
-register_static_folder(os.path.join(HERE, "static"))
+HERE       = Path(__file__).resolve().parent
+COMPONENTS = HERE / "components"
 
-register_component("app.js",        HERE)
-register_component("SourceView.js", COMPONENTS)
-register_component("logo.js",       COMPONENTS)
+server.register_component("app.js",        HERE)
+server.register_component("SourceView.js", COMPONENTS)
+server.register_component("logo.js",       COMPONENTS)
+
+server.app_static_folder = HERE / "static"
 
 from .pages            import index, page1, page2, page3, page4, page5
 from .pages            import protected_page
 from .pages.components import PageWithStatus, PageWithBanner, CollectionView
 from .pages.components import LineChart, ProcessDiagram
 
-logger.info("✅ all systems are go!")
+logger.info("✅ demo is ready")

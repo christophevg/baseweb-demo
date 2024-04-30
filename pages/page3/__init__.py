@@ -1,14 +1,12 @@
 import os
 
-
-from baseweb.interface import register_component
-from baseweb.config    import app
+from ... import server
 
 # register the Vue component for the UI
-register_component("page3.js", os.path.dirname(__file__))
+server.register_component("page3.js", os.path.dirname(__file__))
 
-# setup some additional config
-app["baseweb-demo"] = {
+# add some additional settings
+server.settings["baseweb-demo"] = {
   "a few" : "app specific",
   "configuration" : "settings"
 }

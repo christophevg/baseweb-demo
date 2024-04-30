@@ -2,13 +2,10 @@ import os
 from datetime import datetime, timedelta
 import random
 
-from baseweb.interface import register_component
-
 from flask import request
 from flask_restful import Resource
 
-from baseweb.rest     import api
-from baseweb.security import authenticated
+from .... import server
 
 def random_date_between(start, end):
   delta = end - start
@@ -18,7 +15,7 @@ def random_date_between(start, end):
 def random_date():
   return random_date_between(datetime.now(), datetime.now()+timedelta(days=1))
 
-register_component("CollectionView.js", os.path.dirname(__file__))
+server.register_component("CollectionView.js", os.path.dirname(__file__))
 
 # set up an in-memory collection of random names and provide a resource to
 # access them with query arguments, emulating a MongoDB collection
@@ -35,7 +32,7 @@ data = [
 ]
 
 class Collection(Resource):
-  @authenticated("app.collection.get")
+  @server.authenticated("app.collection.get")
   def get(self):
     start = int(request.args.get("start", 0))
     limit = int(request.args.get("limit", 5))
@@ -56,12 +53,12 @@ class Collection(Resource):
       "totalElements" : len(data)
     }
     
-  @authenticated("app.collection.post")
+  @server.authenticated("app.collection.post")
   def post(self):
     return "ok"
 
-  @authenticated("app.collection.delete")
+  @server.authenticated("app.collection.delete")
   def delete(self):
     return "ok"
 
-api.add_resource(Collection, "/api/collection")
+server.api.add_resource(Collection, "/api/collection")

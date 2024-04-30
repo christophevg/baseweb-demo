@@ -1,51 +1,40 @@
 import os
 
-from baseweb.interface import register_component
-
-# setup OATK infrastructure
-
 from flask import Response
-from flask_restful import Resource, Api
-
-from baseweb.web       import server
-from baseweb.interface import register_external_script
-from baseweb.config    import app
+from flask_restful import Resource
 
 import oatk.js
 from oatk import OAuthToolkit
 
-# register the Vue component for the UI
-register_component("protected_page.js", os.path.dirname(__file__))
+from ... import server
 
-# add discovery url and client_id from env
-app["oauth"] = {
+# register the Vue component for the UI
+server.register_component("protected_page.js", os.path.dirname(__file__))
+
+# expose discovery url and client_id settings loaded from from env
+server.settings["oauth"] = {
   "provider" : os.environ.get("OAUTH_PROVIDER"),
   "client_id": os.environ.get("OAUTH_CLIENT_ID")
 }
 
 # route for oatk.js from the oatk package
-@server.route("/oatk.js", methods=["GET"])
+@server.route("/oatk.js")
 def oatk_script():
   return Response(oatk.js.as_src(), mimetype="application/javascript")
 
 # and have it included in the HTML
-register_external_script("/oatk.js")
+server.register_external_script("/oatk.js")
 
-# a protected API endpoint
-
-# API set up
-api = Api(server)
-
-# setup oatk
-auth = OAuthToolkit()
-auth.using_provider(os.environ["OAUTH_PROVIDER"])
-auth.with_client_id(os.environ["OAUTH_CLIENT_ID"])
+# create an oauth protected API endpoint
+oauth = OAuthToolkit()
+oauth.using_provider(os.environ["OAUTH_PROVIDER"])
+oauth.with_client_id(os.environ["OAUTH_CLIENT_ID"])
 
 class HelloWorld(Resource):
-  @auth.authenticated
+  @oauth.authenticated
   def get(self):
     return {
       "message": "hello protected world"
     }
 
-api.add_resource(HelloWorld, "/api/protected/hello")
+server.api.add_resource(HelloWorld, "/api/protected/hello")
