@@ -41,8 +41,8 @@ var LineChartDemo = {
   methods: {
     add_random_data: function() {
       var num = Math.floor(Math.random() * (100 - 5 + 1) + 5);
-      this.data.shift()
-      this.data.push(num);
+      this.values.shift()
+      this.values.push(num);
     },
     toggle_adding: function() {
       if(this.adding) {
@@ -72,7 +72,7 @@ var LineChartDemo = {
           {
             label: "My Data",
             backgroundColor: "#f87979",
-            data: this.data
+            data: this.values
           }
         ]
       }
