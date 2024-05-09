@@ -32,7 +32,12 @@ logging.getLogger().handlers[0].setFormatter(formatter)
 
 # all set up, now get our server
 
-from baseweb import server
+# you can simply use the default, shared baseweb server instance
+# from baseweb import server
+
+# or create a personal instance
+from baseweb import Baseweb
+server = Baseweb("baseweb-demo")
 
 def authenticator(scope, request, *args, **kwargs):
   logger.debug("👀 scope:{} / request:{} / args:{} / kwargs:{}".format(
