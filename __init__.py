@@ -18,17 +18,19 @@ DATEFMT = "%Y-%m-%d %H:%M:%S %z"
 
 logging.basicConfig(level=LOG_LEVEL, format=FORMAT, datefmt=DATEFMT)
 formatter = logging.Formatter(FORMAT, DATEFMT)
-
-# adjust other loggers to global level and formatting 
-logging.getLogger("gunicorn.error").handlers[0].setFormatter(formatter)
-logging.getLogger("gunicorn.error").setLevel(logging.INFO)
-logging.getLogger("engineio.client").setLevel(logging.WARN)
-logging.getLogger("engineio.server").setLevel(logging.WARN)
-logging.getLogger("socketio.client").setLevel(logging.WARN)
-logging.getLogger("socketio.server").setLevel(logging.WARN)
-logging.getLogger("urllib3").setLevel(logging.WARN)
-
 logging.getLogger().handlers[0].setFormatter(formatter)
+
+# "silence" lower-level modules
+for module in [
+  "gunicorn.error",
+  "pymongo.serverSelection",
+  "engineio.client", "engineio.server", "socketio.client", "socketio.server",
+  "urllib3"
+]:
+  module_logger = logging.getLogger(module)
+  module_logger.setLevel(logging.WARN)
+  if len(module_logger.handlers) > 0:
+    module_logger.handlers[0].setFormatter(formatter)
 
 # all set up, now get our server
 
