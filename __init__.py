@@ -40,7 +40,6 @@ for module in [
 # or create a personal instance
 from baseweb import Baseweb
 server = Baseweb("baseweb-demo")
-server.log_config()
 
 def authenticator(scope, request, *args, **kwargs):
   logger.debug("👀 scope:{} / request:{} / args:{} / kwargs:{}".format(
