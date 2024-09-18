@@ -67,7 +67,7 @@ server.register_component("logo.js",       COMPONENTS)
 
 server.app_static_folder = HERE / "static"
 
-from .pages            import index, page1, page2, page3, page4, page5
+from .pages            import index, page1, page2, page3, page4, page5, page6
 from .pages            import protected_page
 from .pages.components import PageWithStatus, PageWithBanner, CollectionView
 from .pages.components import LineChart, ProcessDiagram
