@@ -9,7 +9,7 @@ from oatk import OAuthToolkit
 from ... import server
 
 # register the Vue component for the UI
-server.register_component("protected_page.js", os.path.dirname(__file__))
+server.register_component("protected_page.js", os.path.dirname(__file__), route="/protected_page")
 
 # expose discovery url and client_id settings loaded from from env
 server.settings["oauth"] = {

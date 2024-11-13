@@ -15,7 +15,7 @@ def random_date_between(start, end):
 def random_date():
   return random_date_between(datetime.now(), datetime.now()+timedelta(days=1))
 
-server.register_component("CollectionView.js", os.path.dirname(__file__))
+server.register_component("CollectionView.js", os.path.dirname(__file__), route="/components/CollectionView")
 
 # set up an in-memory collection of random names and provide a resource to
 # access them with query arguments, emulating a MongoDB collection
