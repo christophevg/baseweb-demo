@@ -1,0 +1,11 @@
+tr.selected-row {
+  background-color: rgb(21, 101, 192);
+}
+
+tr.selected-row td {
+  color: white;
+}
+
+tr.selected-row:hover td {
+  color: black;
+}

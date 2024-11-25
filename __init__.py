@@ -65,6 +65,8 @@ server.register_component("app.js",        HERE)
 server.register_component("SourceView.js", COMPONENTS)
 server.register_component("logo.js",       COMPONENTS)
 
+server.register_stylesheet("demo.css", HERE / "static")
+
 server.app_static_folder = HERE / "static"
 
 from .pages            import index, page1, page2, page3, page4, page5, page6, page7
