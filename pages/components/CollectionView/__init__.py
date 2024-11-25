@@ -2,8 +2,11 @@ import os
 from datetime import datetime, timedelta
 import random
 
-from flask import request
+from flask import request, abort
 from flask_restful import Resource
+
+import logging
+logger = logging.getLogger(__name__)
 
 from .... import server
 
@@ -59,6 +62,13 @@ class Collection(Resource):
 
   @server.authenticated("app.collection.delete")
   def delete(self):
-    return "ok"
+    id = request.args["id"]
+    logger.info(id)
+    index = next((i for i, item in enumerate(data) if item["id"] == int(id)), None)
+    if index:
+      del data[index]
+      return "ok"
+    else:
+      abort(404)
 
 server.api.add_resource(Collection, "/api/collection")
