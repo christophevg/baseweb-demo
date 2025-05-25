@@ -18,7 +18,7 @@ Next clone the baseweb-demo repository, install the minimal requirements (basewe
 ```console
 % git clone https://github.com/christophevg/baseweb-demo
 % cat baseweb-demo/requirements.txt 
-baseweb>=0.3.0
+baseweb>=0.4.3
 oatk
 eventlet
 gunicorn
