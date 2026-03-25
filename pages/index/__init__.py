@@ -6,7 +6,7 @@ from flask import request
 
 from flask_restful import Resource
 
-from ... import server
+from ...web import server
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ class Hello(Resource):
     name = request.args["name"]
     log("received hello from {0} via rest/get".format(name))
     return "Hello {0} from REST/GET".format(name)
-    
+
   @server.authenticated("app.hello.post")
   def post(self):
     name = request.get_json()["name"]

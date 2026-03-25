@@ -1,3 +1,2 @@
-// index 1 will be added later ;-)
-Navigation.add_section({ name: "Pages",      icon: "layers", text: "Pages",      index: 2});
-Navigation.add_section({ name: "Components", icon: "web",    text: "Components", index: 3});
+// this is a general purpose javascript application file, used for global and
+// general purpose functions, application initialization,...
