@@ -35,7 +35,7 @@ server.app_static_folder = HERE / "static"
 
 # load all pages, which will register javascript Vue+Vuetify components and
 # server-side endpoints
-from .pages import index
+from .pages import index # noqa: F401, E402
 
 # log all registered routes
 server.log_routes()
