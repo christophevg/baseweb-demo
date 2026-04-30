@@ -1,5 +1,27 @@
 # TODO
 
+## Coordination with baseweb
+
+This demo project validates baseweb migrations. Every baseweb migration task should be tested here.
+
+### Workflow
+
+1. **Sync baseweb**: `cd ../baseweb && git pull && uv sync`
+2. **Update demo**: `cd ../baseweb-demo && uv sync`
+3. **Run tests**: `make test`
+4. **Run app**: `make run` and manually verify
+5. **Commit both**: Related changes should be committed together
+
+### Validation Checklist
+
+After each baseweb migration task:
+- [ ] `uv sync` works in both projects
+- [ ] `make test` passes in both projects
+- [ ] `make run` starts the demo without errors
+- [ ] Manual testing of affected features
+
+---
+
 ## Backlog
 
 ### Phase 1: Project Setup
