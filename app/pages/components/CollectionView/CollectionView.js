@@ -5,7 +5,7 @@ var CollectionViewDemo = {
     <SourceView src="/app/CollectionView.js">
       <h1>CollectionView</h1>
       <CollectionView topic="demo" :headers="headers" resource="/api/collection"
-                      id="id" :selected="model.selected" @select="select"
+                      id="name" :selected="model.selected" @select="select"
                       actions="delete"
                       sortBy="created"
                       :labels="model.labels"
@@ -48,7 +48,7 @@ var CollectionViewDemo = {
       },
       headers: [
         { text: "id",      align: "left",  sortable: true,  value: "id"      },
-        { text: "name",    align: "left",  sortable: true,  value: "name"    },        
+        { text: "name",    align: "left",  sortable: true,  value: "name"    },
         { text: "updated", align: "left",  sortable: true,  value: "updated" },
         { text: "created", align: "left",  sortable: true,  value: "created" },
         { text: "John?",   align: "center",sortable: false, value: "isAJohn" }
