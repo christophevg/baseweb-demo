@@ -172,7 +172,6 @@ To migrate to the modern async Quart-based version, see the migration guide abov
 
 ## Known Limitations
 
-- **SocketIO**: Disabled pending WebSocket migration in baseweb
 - **OAuth**: Requires `OAUTH_PROVIDER` and `OAUTH_CLIENT_ID` environment variables
 
 ## License

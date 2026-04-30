@@ -72,6 +72,13 @@ After each baseweb migration task:
   - Updated Makefile to use `app:asgi_app`
   - Acceptance: WebSocket/SocketIO functionality works
 
+- [x] **task-3.2: Frontend Verification** (2026-05-01)
+  - Added comprehensive frontend integration tests
+  - Verified REST API endpoints work with async handlers
+  - Verified Socket.IO client connectivity
+  - All 26 tests pass
+  - Acceptance: Frontend works correctly with async backend
+
 ## In Progress
 
 (none)
