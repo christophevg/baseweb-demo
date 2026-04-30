@@ -21,9 +21,9 @@ var Index = {
           <span class="">{{ message.body }}</span>
         </div>
       </v-layout>
-    </v-expansion-panel-content> 
+    </v-expansion-panel-content>
   </v-expansion-panel>
-  
+
 </div>
 `,
   navigation: {
@@ -51,8 +51,8 @@ var Index = {
       $.ajax({
         url: "/api/hello",
         type: "get",
-        data: { 
-          name: this.model["name"], 
+        data: {
+          name: this.model["name"],
         },
         success: function(response) {
           self.working = false;
@@ -67,7 +67,7 @@ var Index = {
         error: function(response) {
           app.$notify({
             group: "notifications",
-            title: "Could not save user...",
+            title: "Could not process...",
             text:  response.responseText,
             type:  "warn",
             duration: 10000
@@ -90,7 +90,7 @@ var Index = {
           app.$notify({
             group: "notifications",
             title: "Response...",
-            text:  response,
+            text:  response.message,
             type:  "success",
             duration: 10000
           });
@@ -98,7 +98,7 @@ var Index = {
         error: function(response) {
           app.$notify({
             group: "notifications",
-            title: "Could not save user...",
+            title: "Could not process...",
             text:  response.responseText,
             type:  "warn",
             duration: 10000
@@ -118,7 +118,7 @@ var Index = {
           text:  response,
           type:  "success",
           duration: 10000
-        });        
+        });
       });
     }
   },

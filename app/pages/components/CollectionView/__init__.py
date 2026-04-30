@@ -1,14 +1,15 @@
-import os
-from datetime import datetime, timedelta
-import random
-
-from flask import request, abort
-from flask_restful import Resource
-
 import logging
+import os
+import random
+from datetime import datetime, timedelta
+
+from baseweb import Resource
+from quart import abort, request
+
 logger = logging.getLogger(__name__)
 
 from .... import server
+
 
 def random_date_between(start, end):
   delta = end - start
@@ -36,7 +37,7 @@ data = [
 
 class Collection(Resource):
   @server.authenticated("app.collection.get")
-  def get(self):
+  async def get(self):
     start = int(request.args.get("start", 0))
     limit = int(request.args.get("limit", 5))
     sort  = request.args.get("sort", None)
@@ -51,17 +52,17 @@ class Collection(Resource):
     if order == "desc":
       selection.reverse()
 
-    return { 
+    return {
       "content"       : selection[start:start+limit],
       "totalElements" : len(data)
     }
-    
+
   @server.authenticated("app.collection.post")
-  def post(self):
+  async def post(self):
     return "ok"
 
   @server.authenticated("app.collection.delete")
-  def delete(self):
+  async def delete(self):
     id = request.args["id"]
     logger.info(id)
     index = next((i for i, item in enumerate(data) if item["id"] == int(id)), None)
@@ -71,4 +72,4 @@ class Collection(Resource):
     else:
       abort(404)
 
-server.api.add_resource(Collection, "/api/collection")
+server.add_resource(Collection, "/api/collection")

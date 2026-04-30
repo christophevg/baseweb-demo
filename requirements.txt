@@ -1,4 +1,0 @@
-baseweb>=0.4.3
-oatk
-eventlet
-gunicorn

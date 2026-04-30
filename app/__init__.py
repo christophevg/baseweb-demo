@@ -2,7 +2,7 @@ import logging
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv, find_dotenv
+from dotenv import find_dotenv, load_dotenv
 
 logger = logging.getLogger(__name__)
 
@@ -39,24 +39,26 @@ for module in [
 
 # or create a personal instance
 from baseweb import Baseweb
+
 server = Baseweb("baseweb-demo")
 server.log_config()
 
 def authenticator(scope, request, *args, **kwargs):
-  logger.debug("👀 scope:{} / request:{} / args:{} / kwargs:{}".format(
-    scope, str(request), str(args), str(kwargs)
-  ))
+  logger.debug(f"👀 scope:{scope} / request:{str(request)} / args:{str(args)} / kwargs:{str(kwargs)}")
   return True
 
 server.authenticator = authenticator
 
-@server.socketio.on("connect")
-def on_connect():
-  logger.info("connect: {0}".format(server.request.sid))
-
-@server.socketio.on("disconnect")
-def on_disconnect():
-  logger.info("disconnect: {0}".format(server.request.sid))
+# TODO: task-3.3 - Re-enable SocketIO handlers after WebSocket migration
+# Flask-SocketIO is not compatible with Quart (ASGI)
+# WebSocket support will be re-enabled in task-3.3
+# @server.socketio.on("connect")
+# def on_connect():
+#   logger.info("connect: {0}".format(server.request.sid))
+#
+# @server.socketio.on("disconnect")
+# def on_disconnect():
+#   logger.info("disconnect: {0}".format(server.request.sid))
 
 HERE       = Path(__file__).resolve().parent
 COMPONENTS = HERE / "components"
@@ -69,10 +71,14 @@ server.register_stylesheet("demo.css", HERE / "static")
 
 server.app_static_folder = HERE / "static"
 
-from .pages            import index, page1, page2, page3, page4, page5, page6, page7
-from .pages            import protected_page
-from .pages.components import PageWithStatus, PageWithBanner, CollectionView
-from .pages.components import LineChart, ProcessDiagram
+from .pages import index, page1, page2, page3, page4, page5, page6, page7, protected_page
+from .pages.components import (
+  CollectionView,
+  LineChart,
+  PageWithBanner,
+  PageWithStatus,
+  ProcessDiagram,
+)
 
 server.log_routes()
 logger.info("✅ demo is ready")
