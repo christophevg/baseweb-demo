@@ -79,12 +79,12 @@ class TestMigration:
       content = file.read_text()
       assert "flask_restful" not in content, f"flask_restful found in {file}"
 
-  def test_socketio_handlers_commented_out(self):
-    """Test that SocketIO handlers are commented out in index page."""
-    # Check source file for commented handlers
+  def test_socketio_handlers_enabled(self):
+    """Test that SocketIO handlers are enabled with async pattern in index page."""
     index_file = Path(__file__).parent.parent / "app" / "pages" / "index" / "__init__.py"
     content = index_file.read_text()
 
-    # SocketIO handlers should be commented out
-    assert "# @server.socketio.on" in content, "SocketIO handlers should be commented out"
-    assert "# server.socketio.emit" in content or "server.socketio.emit" not in content, "SocketIO emit should be commented out or removed"
+    # SocketIO handlers should be enabled with async pattern
+    assert "@server.socketio.on(\"hello\")" in content, "SocketIO hello handler should be enabled"
+    assert "async def on_hello" in content, "Handler should be async"
+    assert "sid" in content, "Handler should have sid parameter"

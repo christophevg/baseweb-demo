@@ -13,10 +13,10 @@ install:
 	uv sync --all-extras
 
 run:
-	uv run gunicorn app:server -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+	uv run gunicorn "app:asgi_app" -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 
 run-dev:
-	uv run uvicorn app:server --reload --host 0.0.0.0 --port 8000
+	uv run uvicorn "app:asgi_app" --reload --host 0.0.0.0 --port 8000
 
 clean:
 	rm -rf .venv __pycache__ .pytest_cache .coverage *.egg-info

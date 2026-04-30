@@ -63,12 +63,13 @@ After each baseweb migration task:
   - Add `await` to `request.args` access if needed
   - Acceptance: CollectionView API endpoints work
 
-### Phase 3: WebSocket Re-enablement (Blocked)
+### Phase 3: WebSocket Re-enablement
 
-- [ ] **task-3.1: Re-enable SocketIO Handlers**
-  - Depends on: baseweb task-3.3 (WebSocket migration)
-  - Migrate SocketIO handlers to Quart native WebSocket
-  - Update frontend Socket.IO client if needed
+- [x] **task-3.1: Re-enable SocketIO Handlers** (2026-04-30)
+  - Re-enabled SocketIO handlers with python-socketio ASGI pattern
+  - Updated handlers to async with `sid` parameter
+  - Added `asgi_app` entry point for running with uvicorn
+  - Updated Makefile to use `app:asgi_app`
   - Acceptance: WebSocket/SocketIO functionality works
 
 ## In Progress

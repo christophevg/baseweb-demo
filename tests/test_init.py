@@ -30,14 +30,16 @@ class TestMainEntryPoint:
     assert server.authenticator is not None
     assert callable(server.authenticator)
 
-  def test_socketio_handlers_disabled(self):
-    """Verify SocketIO handlers are disabled (commented out)."""
+  def test_socketio_handlers_enabled(self):
+    """Verify SocketIO handlers are enabled with async pattern."""
     init_file = Path(__file__).parent.parent / "app" / "__init__.py"
     content = init_file.read_text()
 
-    # Check that socketio decorators are commented out
-    assert "# @server.socketio.on" in content or "# TODO: task-3.3" in content
+    # Check that socketio decorators are NOT commented out
+    assert "@server.socketio.on(\"connect\")" in content
+    assert "@server.socketio.on(\"disconnect\")" in content
 
-    # Verify the TODO comment exists
-    assert "task-3.3" in content
-    assert "Re-enable SocketIO handlers" in content or "WebSocket migration" in content
+    # Verify async handlers
+    assert "async def on_connect" in content
+    assert "async def on_disconnect" in content
+    assert "sid" in content  # sid parameter present

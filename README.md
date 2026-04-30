@@ -38,15 +38,17 @@ Visit [http://localhost:8000](http://localhost:8000).
 ```console
 % make run
 # or
-% uv run gunicorn app:server -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+% uv run gunicorn "app:asgi_app" -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
+
+**Note:** Use `app:asgi_app` (not `app:server`) to enable both REST API and WebSocket/Socket.IO.
 
 ### Development (with auto-reload)
 
 ```console
 % make run-dev
 # or
-% uv run uvicorn app:server --reload --host 0.0.0.0 --port 8000
+% uv run uvicorn "app:asgi_app" --reload --host 0.0.0.0 --port 8000
 ```
 
 ## Development

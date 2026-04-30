@@ -49,16 +49,14 @@ def authenticator(scope, request, *args, **kwargs):
 
 server.authenticator = authenticator
 
-# TODO: task-3.3 - Re-enable SocketIO handlers after WebSocket migration
-# Flask-SocketIO is not compatible with Quart (ASGI)
-# WebSocket support will be re-enabled in task-3.3
-# @server.socketio.on("connect")
-# def on_connect():
-#   logger.info("connect: {0}".format(server.request.sid))
-#
-# @server.socketio.on("disconnect")
-# def on_disconnect():
-#   logger.info("disconnect: {0}".format(server.request.sid))
+# Socket.IO event handlers (python-socketio with ASGI)
+@server.socketio.on("connect")
+async def on_connect(sid, environ):
+  logger.info(f"connect: {sid}")
+
+@server.socketio.on("disconnect")
+async def on_disconnect(sid):
+  logger.info(f"disconnect: {sid}")
 
 HERE       = Path(__file__).resolve().parent
 COMPONENTS = HERE / "components"
@@ -82,3 +80,6 @@ from .pages.components import (
 
 server.log_routes()
 logger.info("✅ demo is ready")
+
+# ASGI app entry point (wraps Quart + Socket.IO)
+asgi_app = server._asgi_app
