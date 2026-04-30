@@ -1,79 +1,159 @@
 # baseweb demo
 
-This repository is a small demo application for baseweb. See [https://github.com/christophevg/baseweb](https://github.com/christophevg/baseweb) for more information on baseweb.
+This repository is a demo application for [baseweb](https://github.com/christophevg/baseweb), showcasing its features and demonstrating best practices for building async web applications with Quart.
+
+## Features Demonstrated
+
+- **REST API**: GET and POST endpoints with different response types
+- **Authentication**: Custom authenticator with scope-based access control
+- **OAuth Integration**: Protected endpoints using OAuth (optional)
+- **Vue.js Frontend**: Vuetify-based UI with Vue Form Generator
+- **PWA Support**: Progressive Web App configuration
+- **Component Registration**: Modular page and component structure
 
 ## Requirements
 
 - Python 3.11+
 - [uv](https://docs.astral.sh/uv/) package manager
 
-## Running the Demo
+## Quick Start
 
-Clone the repository and install dependencies:
+Clone and run:
 
 ```console
 % git clone https://github.com/christophevg/baseweb-demo
 % cd baseweb-demo
 % uv sync --all-extras
-```
-
-Run the server:
-
-```console
 % make run
 ```
 
-Or manually:
+Visit [http://localhost:8000](http://localhost:8000).
+
+![baseweb demo](baseweb-demo.png)
+
+## Running the Demo
+
+### Production (gunicorn + uvicorn)
 
 ```console
+% make run
+# or
 % uv run gunicorn app:server -w 1 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
 
-For development with auto-reload:
+### Development (with auto-reload)
 
 ```console
 % make run-dev
+# or
+% uv run uvicorn app:server --reload --host 0.0.0.0 --port 8000
 ```
-
-Now visit [http://localhost:8000](http://localhost:8000).
-
-![baseweb demo](baseweb-server.png)
 
 ## Development
 
-Run tests:
-
 ```console
-% make test
+% make install   # Install dependencies
+% make lint      # Run linter
+% make test      # Run tests
+% make coverage  # Run tests with coverage
 ```
 
-Run linting:
+## API Patterns
 
-```console
-% make lint
+The demo showcases two response patterns:
+
+### Plain Text Response (GET)
+
+```python
+class Hello(Resource):
+    async def get(self):
+        return f"Hello {name} from REST/GET"  # Plain string
 ```
+
+Frontend receives the string directly.
+
+### JSON Response (POST)
+
+```python
+class Hello(Resource):
+    async def post(self):
+        return {"message": f"Hello {name} from REST/POST"}  # JSON object
+```
+
+Frontend unpacks: `response.message`
+
+This demonstrates that:
+- **Dicts** are auto-converted to JSON with `application/json` content-type
+- **Strings** are returned as-is (framework determines content-type)
 
 ## Project Structure
 
 ```
 baseweb-demo/
-├── app/                    # Application code
-│   ├── __init__.py         # Main entry point
-│   ├── pages/              # Page modules
-│   ├── components/         # Vue components
-│   └── static/             # Static files
-├── tests/                  # Test suite
-├── pyproject.toml          # Project configuration
-└── Makefile                # Development commands
+├── app/                        # Application code
+│   ├── __init__.py             # Main entry point, server configuration
+│   ├── pages/                  # Page modules (routes + Vue components)
+│   │   ├── index/              # Hello World with REST API
+│   │   ├── protected_page/     # OAuth-protected page
+│   │   ├── components/         # Reusable Vue components
+│   │   └── page1-7/            # Additional demo pages
+│   ├── components/             # Shared Vue components
+│   └── static/                 # Static files (CSS, images, icons)
+├── tests/                      # Test suite
+├── pyproject.toml              # Project configuration
+├── Makefile                    # Development commands
+└── .env                        # Environment configuration
 ```
 
-## Migrating from Flask to Quart
+## Running Against Local Baseweb
 
-This demo has been migrated from Flask to Quart for async support. Key changes:
+To develop against a local baseweb checkout:
 
-- Flask → Quart imports
-- Flask-RESTful → Baseweb Resource class
-- Sync methods → Async methods
-- SocketIO handlers disabled (pending WebSocket migration)
+```console
+% cd baseweb-demo
+% uv add --editable ../baseweb
+% uv sync
+```
 
-See [baseweb migration guide](https://github.com/christophevg/baseweb/blob/master/docs/migration-guide.md) for details.
+The `pyproject.toml` already includes this configuration:
+
+```toml
+[tool.uv.sources]
+baseweb = { path = "../baseweb", editable = true }
+```
+
+## Environment Variables
+
+Configure in `.env`:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `LOG_LEVEL` | Logging level | `INFO` |
+| `APP_NAME` | Application name | `baseweb demo` |
+| `APP_URL` | Application URL | - |
+| `APP_STYLE` | Style mode (`web` or `pwa`) | `pwa` |
+| `OAUTH_PROVIDER` | OAuth provider (optional) | - |
+| `OAUTH_CLIENT_ID` | OAuth client ID (optional) | - |
+
+## Migration from Flask
+
+This demo was migrated from Flask to Quart for async support. Key changes:
+
+| Before | After |
+|--------|-------|
+| `from flask import ...` | `from quart import ...` |
+| `from flask_restful import Resource` | `from baseweb import Resource` |
+| `def get(self):` | `async def get(self):` |
+| `server.api.add_resource(...)` | `server.add_resource(...)` |
+| `gunicorn -k eventlet` | `gunicorn -k uvicorn.workers.UvicornWorker` |
+
+See the [baseweb migration guide](https://github.com/christophevg/baseweb/blob/master/docs/migration-guide.md) for details.
+
+## Known Limitations
+
+- **SocketIO**: Disabled pending WebSocket migration in baseweb
+- **OAuth**: Requires `OAUTH_PROVIDER` and `OAUTH_CLIENT_ID` environment variables
+
+## License
+
+MIT License - See [LICENSE](LICENSE) for details.
