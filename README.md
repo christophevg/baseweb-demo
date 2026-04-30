@@ -151,6 +151,25 @@ This demo was migrated from Flask to Quart for async support. Key changes:
 
 See the [baseweb migration guide](https://github.com/christophevg/baseweb/blob/master/docs/migration-guide.md) for details.
 
+## Legacy Flask Support
+
+If you're still using the Flask-based version of baseweb, use the `legacy` tag:
+
+```console
+% git clone https://github.com/christophevg/baseweb-demo
+% cd baseweb-demo
+% git checkout legacy
+```
+
+The `legacy` tag points to the last commit compatible with the synchronous Flask-based baseweb:
+
+- Uses `flask` and `flask-restful` imports
+- Synchronous request handlers
+- Flask-SocketIO with eventlet
+- Compatible with baseweb `< 0.4.0`
+
+To migrate to the modern async Quart-based version, see the migration guide above.
+
 ## Known Limitations
 
 - **SocketIO**: Disabled pending WebSocket migration in baseweb
