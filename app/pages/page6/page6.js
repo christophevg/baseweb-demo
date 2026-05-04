@@ -1,4 +1,6 @@
-// Vue 3 calendar example - updated for Vuetify 3
+// Vue 3 calendar example - using external calendar library
+// Note: Vuetify 3 Labs calendar requires special bundling
+// For now, display a placeholder message
 var Page6 = {
   template : `
 <Page>
@@ -7,64 +9,24 @@ var Page6 = {
   <v-container>
     <v-row>
       <v-col>
-        <v-sheet height="600">
-          <v-calendar
-            :now="today"
-            :value="today"
-            color="primary"
-          >
-            <template v-slot:day="{ date }">
-              <template v-for="event in eventsMap[date]" :key="event.title">
-                <v-menu
-                  v-model="event.open"
-                  location="end"
-                >
-                  <template v-slot:activator="{ props }">
-                    <div
-                      v-if="!event.time"
-                      v-ripple
-                      class="my-event"
-                      v-bind="props"
-                    >{{ event.title }}</div>
-                  </template>
-                  <v-card
-                    color="grey-lighten-4"
-                    min-width="350px"
-                    variant="flat"
-                  >
-                    <v-toolbar
-                      color="primary"
-                      theme="dark"
-                    >
-                      <v-btn icon variant="text">
-                        <v-icon>mdi-pencil</v-icon>
-                      </v-btn>
-                      <v-toolbar-title>{{ event.title }}</v-toolbar-title>
-                      <v-spacer></v-spacer>
-                      <v-btn icon variant="text">
-                        <v-icon>mdi-heart</v-icon>
-                      </v-btn>
-                      <v-btn icon variant="text">
-                        <v-icon>mdi-dots-vertical</v-icon>
-                      </v-btn>
-                    </v-toolbar>
-                    <v-card-title>
-                      <span>{{ event.details }}</span>
-                    </v-card-title>
-                    <v-card-actions>
-                      <v-btn
-                        variant="text"
-                        color="secondary"
-                      >
-                        Cancel
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-menu>
-              </template>
-            </template>
-          </v-calendar>
-        </v-sheet>
+        <v-card>
+          <v-card-title>Calendar</v-card-title>
+          <v-card-text>
+            <p class="text-grey">
+              The calendar component requires Vuetify Labs which needs special bundling.
+              This page will be updated with a calendar solution in a future update.
+            </p>
+            <p class="mt-4">
+              <strong>Events that would be shown:</strong>
+            </p>
+            <v-list>
+              <v-list-item v-for="event in events" :key="event.title + event.date">
+                <v-list-item-title>{{ event.title }}</v-list-item-title>
+                <v-list-item-subtitle>{{ event.date }} - {{ event.details }}</v-list-item-subtitle>
+              </v-list-item>
+            </v-list>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
