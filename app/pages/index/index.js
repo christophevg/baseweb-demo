@@ -12,23 +12,26 @@ var Index = {
   <hr style="margin-bottom:20px;margin-top:20px;">
 
   <h2>Messages from the server side</h2>
-  <v-expansion-panel popout>
-    <v-expansion-panel-content v-for="(message, i) in messages" :key="i" hide-actions>
-      <v-layout slot="header" align-left row spacer>
+  <v-expansion-panels>
+    <v-expansion-panel v-for="(message, i) in messages" :key="i">
+      <v-expansion-panel-title>
         <div>
-          <span class="grey--text">{{ message.when | formatDate }}</span>
+          <span class="text-grey">{{ $filters.formatDate(message.when) }}</span>
           <br>
-          <span class="">{{ message.body }}</span>
+          <span>{{ message.body }}</span>
         </div>
-      </v-layout>
-    </v-expansion-panel-content>
-  </v-expansion-panel>
+      </v-expansion-panel-title>
+      <v-expansion-panel-text>
+        <div>{{ message.body }}</div>
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
 
 </div>
 `,
   navigation: {
     section: null,
-    icon:    "home",
+    icon:    "mdi-home",
     text:    "Welcome",
     path:    "/",
     index:   1
@@ -56,21 +59,17 @@ var Index = {
         },
         success: function(response) {
           self.working = false;
-          app.$notify({
-            group: "notifications",
+          notify({
             title: "Response...",
             text:  response,
-            type:  "success",
-            duration: 10000
+            type:  "success"
           });
         },
         error: function(response) {
-          app.$notify({
-            group: "notifications",
+          notify({
             title: "Could not process...",
             text:  response.responseText,
-            type:  "warn",
-            duration: 10000
+            type:  "warning"
           });
           self.working = false;
         }
@@ -87,21 +86,17 @@ var Index = {
         contentType: "application/json",
         success: function(response) {
           self.working = false;
-          app.$notify({
-            group: "notifications",
+          notify({
             title: "Response...",
             text:  response.message,
-            type:  "success",
-            duration: 10000
+            type:  "success"
           });
         },
         error: function(response) {
-          app.$notify({
-            group: "notifications",
+          notify({
             title: "Could not process...",
             text:  response.responseText,
-            type:  "warn",
-            duration: 10000
+            type:  "warning"
           });
           self.working = false;
         }
@@ -112,12 +107,10 @@ var Index = {
       var self = this;
       socket.emit("hello", this.model["name"], function(response) {
         self.working = false;
-        app.$notify({
-          group: "notifications",
+        notify({
           title: "Response...",
           text:  response,
-          type:  "success",
-          duration: 10000
+          type:  "success"
         });
       });
     }
@@ -138,8 +131,7 @@ var Index = {
             model: "name",
             readonly: false,
             required: true,
-            placeholder: "Your name",
-            validator: VueFormGenerator.validators.string
+            placeholder: "Your name"
           }
         ]
       },

@@ -18,11 +18,12 @@ var Page7 = {
   },
   navigation: {
     section: "Pages",
-    icon:    "description",
+    icon:    "mdi-text-box",
     text:    "Page with a parameter",
     path:    "/page7"
   }
 };
 
 Navigation.add(Page7);
-router.addRoutes([ { path: "/page7/:id", component: Page7 } ]);
+// Vue Router 4: use addRoute (singular) instead of addRoutes
+router.addRoute({ path: "/page7/:id", component: Page7 });

@@ -39,7 +39,7 @@ var ProtectedPage = {
 `,
   navigation: {
     section: "Pages",
-    icon:    "description",
+    icon:    "mdi-text-box",
     text:    "A protected page",
     path:    "/protected_page"
   },

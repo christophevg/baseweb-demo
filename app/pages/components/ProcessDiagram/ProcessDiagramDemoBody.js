@@ -1,4 +1,4 @@
-Vue.component("ProcessDiagramDemoBody", {
+app.component("ProcessDiagramDemoBody", {
   props: [ "title", "body" ],
   template: `
     <v-card>

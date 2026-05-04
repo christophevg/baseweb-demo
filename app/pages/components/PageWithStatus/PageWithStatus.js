@@ -12,46 +12,46 @@ var PageWithStatusDemo = {
       at the top.
 
       So, to raise something just issue
-  
+
       <code>store.commit("error", "something went wrong")</code>
-  
+
       or
-  
+
       <code>store.commit("success", "all good!")</code>
 
       or
-  
+
       <code>store.commit("warning", "be carefull!")</code>
-  
+
     </p>
-  
+
     <v-card>
       <v-card-text>
-        <v-layout justify-center row>
-        <v-btn @click="raise('error', 'something went wrong')">raise an error</v-btn>
-        <v-btn @click="raise('error', 'something else went wrong')">raise an another error</v-btn>
-        <v-btn @click="raise('warning', 'something might go wrong')">raise a warning</v-btn>
-        <v-btn @click="raise('success', 'nothing went wrong')">report everything is ok</v-btn>
-        <v-btn @click="raise('info', 'things can or cannot go wrong')">inform about options</v-btn>
-      </v-layout>
+        <v-row justify="center">
+          <v-btn @click="raise('error', 'something went wrong')" class="ma-1">raise an error</v-btn>
+          <v-btn @click="raise('error', 'something else went wrong')" class="ma-1">raise an another error</v-btn>
+          <v-btn @click="raise('warning', 'something might go wrong')" class="ma-1">raise a warning</v-btn>
+          <v-btn @click="raise('success', 'nothing went wrong')" class="ma-1">report everything is ok</v-btn>
+          <v-btn @click="raise('info', 'things can or cannot go wrong')" class="ma-1">inform about options</v-btn>
+        </v-row>
       </v-card-text>
-    </v-card>     
+    </v-card>
 
     <v-card>
       <v-card-text>
         <div style="margin:20px">
           <code>store.state.status</code>
-          <div style="margin-top:20px" v-html="$options.filters.syntaxHighlight(status, 800)"></div>
+          <div style="margin-top:20px" v-html="$filters.syntaxHighlight(status, 800)"></div>
         </div>
       </v-card-text>
-    </v-card>     
+    </v-card>
 
   </PageWithBanner>
 </PageWithStatus>
 `,
   navigation: {
     section: "Components",
-    icon:    "extension",
+    icon:    "mdi-puzzle",
     text:    "Page with status",
     path:    "/components/PageWithStatus"
   },

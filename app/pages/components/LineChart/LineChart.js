@@ -9,32 +9,32 @@ var LineChartDemo = {
       <v-card-text>
         <LineChart :chartData="chartdata" :options="options"/>
       </v-card-text>
-    </v-card>     
-  
+    </v-card>
+
     <v-card>
       <v-card-text>
-        <v-layout justify-center row>
-          <v-btn @click="add_random_data()">add a data point</v-btn>
-          <v-btn @click="toggle_adding()">{{ toggle_label }} adding data points</v-btn>
-        </v-layout>
+        <v-row justify="center">
+          <v-btn @click="add_random_data()" class="ma-2">add a data point</v-btn>
+          <v-btn @click="toggle_adding()" class="ma-2">{{ toggle_label }} adding data points</v-btn>
+        </v-row>
       </v-card-text>
-    </v-card>     
+    </v-card>
 
     <v-card>
       <v-card-text>
         <div style="margin:20px">
           <code>data.values</code>
-          <div style="margin-top:20px" v-html="$options.filters.syntaxHighlight(values, 800)"></div>
+          <div style="margin-top:20px" v-html="$filters.syntaxHighlight(values, 800)"></div>
         </div>
       </v-card-text>
-    </v-card>     
+    </v-card>
 
   </PageWithBanner>
 </PageWithStatus>
 `,
   navigation: {
     section: "Components",
-    icon:    "extension",
+    icon:    "mdi-puzzle",
     text:    "LineChart",
     path:    "/components/LineChart"
   },
@@ -84,8 +84,10 @@ var LineChartDemo = {
       toggle_label: "start",
       values: [40, 39, 10, 40, 39, 80, 40],
       options: {
-        legend: {
-          display: true
+        plugins: {
+          legend: {
+            display: true
+          }
         }
       }
     }

@@ -1,92 +1,79 @@
-// hide known issue ;-)
-const ignoreWarnMessage = 'The .native modifier for v-on is only valid on components but it was used on <div>.';
-Vue.config.warnHandler = function (msg, vm, trace) {
-  // `trace` is the component hierarchy trace
-  if (msg === ignoreWarnMessage) {
-    msg = null;
-    vm = null;
-    trace = null;
-  }
-}
-
+// Vue 3 calendar example - updated for Vuetify 3
 var Page6 = {
   template : `
 <Page>
   <h1>A page with a calendar...</h1>
 
-  <template>
-  <v-layout>
-    <v-flex>
-      <v-sheet height="600">
-        <v-calendar
-          :now="today"
-          :value="today"
-          color="primary"
-        >
-          <template v-slot:day="{ date }">
-            <template v-for="event in eventsMap[date]">
-              <v-menu
-                :key="event.title"
-                v-model="event.open"
-                full-width
-                offset-x
-              >
-                <template v-slot:activator="{ on }">
-                  <div
-                    v-if="!event.time"
-                    v-ripple
-                    class="my-event"
-                    v-on="on"
-                    v-html="event.title"
-                  ></div>
-                </template>
-                <v-card
-                  color="grey lighten-4"
-                  min-width="350px"
-                  flat
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-sheet height="600">
+          <v-calendar
+            :now="today"
+            :value="today"
+            color="primary"
+          >
+            <template v-slot:day="{ date }">
+              <template v-for="event in eventsMap[date]" :key="event.title">
+                <v-menu
+                  v-model="event.open"
+                  location="end"
                 >
-                  <v-toolbar
-                    color="primary"
-                    dark
+                  <template v-slot:activator="{ props }">
+                    <div
+                      v-if="!event.time"
+                      v-ripple
+                      class="my-event"
+                      v-bind="props"
+                    >{{ event.title }}</div>
+                  </template>
+                  <v-card
+                    color="grey-lighten-4"
+                    min-width="350px"
+                    variant="flat"
                   >
-                    <v-btn icon>
-                      <v-icon>edit</v-icon>
-                    </v-btn>
-                    <v-toolbar-title v-html="event.title"></v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-btn icon>
-                      <v-icon>favorite</v-icon>
-                    </v-btn>
-                    <v-btn icon>
-                      <v-icon>more_vert</v-icon>
-                    </v-btn>
-                  </v-toolbar>
-                  <v-card-title primary-title>
-                    <span v-html="event.details"></span>
-                  </v-card-title>
-                  <v-card-actions>
-                    <v-btn
-                      flat
-                      color="secondary"
+                    <v-toolbar
+                      color="primary"
+                      theme="dark"
                     >
-                      Cancel
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-menu>
+                      <v-btn icon variant="text">
+                        <v-icon>mdi-pencil</v-icon>
+                      </v-btn>
+                      <v-toolbar-title>{{ event.title }}</v-toolbar-title>
+                      <v-spacer></v-spacer>
+                      <v-btn icon variant="text">
+                        <v-icon>mdi-heart</v-icon>
+                      </v-btn>
+                      <v-btn icon variant="text">
+                        <v-icon>mdi-dots-vertical</v-icon>
+                      </v-btn>
+                    </v-toolbar>
+                    <v-card-title>
+                      <span>{{ event.details }}</span>
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-btn
+                        variant="text"
+                        color="secondary"
+                      >
+                        Cancel
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-menu>
+              </template>
             </template>
-          </template>
-        </v-calendar>
-      </v-sheet>
-    </v-flex>
-  </v-layout>
-  </template>
+          </v-calendar>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 
 </Page>
 `,
   navigation: {
     section : "Pages",
-    icon    : "description",
+    icon    : "mdi-text-box",
     text    : "Page with a calendar",
     path    : "/page6"
   },
@@ -161,4 +148,3 @@ var Page6 = {
 }
 
 Navigation.add(Page6)
-

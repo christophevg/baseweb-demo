@@ -12,40 +12,40 @@ var PageWitBannerDemo = {
       activated.
 
     </p>
-  
+
     <p>
-  
+
       PS Other component demo pages also derive from <code>PageWithBanner</code>.
-  
+
     </p>
 
     <v-card>
       <v-card-text>
-        <v-layout justify-center row>
-        <v-btn @click="update({'alert' : true }      )">show the banner</v-btn>
-        <v-btn @click="update({'alert' : false }     )">hide the banner</v-btn>
-        <v-btn @click="update({'type'  : 'success' } )">make it an success banner</v-btn>
-        <v-btn @click="update({'type'  : 'info' }    )">make it an info banner</v-btn>
-        <v-btn @click="update({'type'  : 'warning' } )">make it an warning banner</v-btn>
-        <v-btn @click="update({'type'  : 'error' }   )">make it an error banner</v-btn>
-      </v-layout>
+        <v-row justify="center">
+          <v-btn @click="update({'alert' : true }      )" class="ma-1">show the banner</v-btn>
+          <v-btn @click="update({'alert' : false }     )" class="ma-1">hide the banner</v-btn>
+          <v-btn @click="update({'type'  : 'success' } )" class="ma-1">make it an success banner</v-btn>
+          <v-btn @click="update({'type'  : 'info' }    )" class="ma-1">make it an info banner</v-btn>
+          <v-btn @click="update({'type'  : 'warning' } )" class="ma-1">make it an warning banner</v-btn>
+          <v-btn @click="update({'type'  : 'error' }   )" class="ma-1">make it an error banner</v-btn>
+        </v-row>
       </v-card-text>
-    </v-card>     
+    </v-card>
 
     <v-card>
       <v-card-text>
         <div style="margin:20px">
           <code>store.state.banner</code>
-          <div style="margin-top:20px" v-html="$options.filters.syntaxHighlight(banner, 800)"></div>
+          <div style="margin-top:20px" v-html="$filters.syntaxHighlight(banner, 800)"></div>
         </div>
       </v-card-text>
-    </v-card>     
+    </v-card>
   </PageWithBanner>
 </PageWithStatus>
 `,
   navigation: {
     section: "Components",
-    icon:    "extension",
+    icon:    "mdi-puzzle",
     text:    "Page with a banner",
     path:    "/components/PageWitBanner"
   },

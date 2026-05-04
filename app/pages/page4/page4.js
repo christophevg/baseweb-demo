@@ -5,9 +5,9 @@ var Page4 = {
   <p>
 
     A page can apply a badge to it's <code>NavigationDrawer</code> tile.
-  
+
   </p>
-  
+
   <p>
 
     Use the buttons below to increase/decrease a local value for this page. It
@@ -24,26 +24,26 @@ var Page4 = {
 
   <v-card>
     <v-card-text>
-      <v-layout justify-center row>
-      <v-btn @click="update(-1)">-</v-btn>
-      <v-chip :color="badge.color" text-color="white">{{ badge.text }}</v-chip>
-      <v-btn @click="update(+1)">+</v-btn>
-    </v-layout>
+      <v-row justify="center">
+        <v-btn @click="update(-1)">-</v-btn>
+        <v-chip :color="badge.color" class="ma-2">{{ badge.text }}</v-chip>
+        <v-btn @click="update(+1)">+</v-btn>
+      </v-row>
     </v-card-text>
-  </v-card>     
+  </v-card>
 
   <v-card>
     <v-card-text>
       <div style="margin:20px">
-        <div style="margin:20px" v-html="$options.filters.syntaxHighlight(config, 800)"></div>
+        <div style="margin:20px" v-html="$filters.syntaxHighlight(config, 800)"></div>
       </div>
     </v-card-text>
-  </v-card>     
+  </v-card>
 </Page>
 `,
   navigation: {
     section : "Pages",
-    icon    : "description",
+    icon    : "mdi-text-box",
     text    : "Page with a badge",
     path    : "/page4"
   },
@@ -79,4 +79,5 @@ store.registerModule("badge", {
   }
 });
 
-Vue.set(Page4.navigation, "badge", store.state.badge);
+// Vue 3: reactivity is automatic, no need for Vue.set
+Page4.navigation.badge = store.state.badge;

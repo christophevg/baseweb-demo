@@ -1,4 +1,4 @@
-Vue.component("Logo", {
+app.component("Logo", {
   template : `
 <svg
    width="142.56024mm"

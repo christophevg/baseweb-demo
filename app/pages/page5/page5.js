@@ -5,25 +5,25 @@ var Page5 = {
   <p>
     Vue Form Generator is included...
   </p>
-  
+
   <v-card>
     <v-card-text>
       <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
     </v-card-text>
-  </v-card>     
+  </v-card>
 
   <v-card>
     <v-card-text>
       <div style="margin:20px">
-        <div style="margin:20px" v-html="$options.filters.syntaxHighlight(model, 800)"></div>
+        <div style="margin:20px" v-html="$filters.syntaxHighlight(model, 800)"></div>
       </div>
     </v-card-text>
-  </v-card>     
+  </v-card>
 </Page>
 `,
   navigation: {
     section : "Pages",
-    icon    : "description",
+    icon    : "mdi-text-box",
     text    : "Page with a form",
     path    : "/page5"
   },
@@ -41,11 +41,7 @@ var Page5 = {
             placeholder: "First and last name",
             model      : "name",
             required   : true,
-            min:       3,
-            validator: VueFormGenerator.validators.string.locale({
-              fieldIsRequired: "I need this...!",
-              textTooSmall: "Please enter at least {1} characters."
-            })
+            min:       3
           }
         ]
       },

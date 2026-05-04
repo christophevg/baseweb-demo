@@ -80,8 +80,8 @@ class TestFrontendStoreAndRoutes:
       response = await client.get("/static/js/store.js")
       assert response.status_code == 200
       content = await response.get_data()
-      # Store should contain Vuex.Store initialization
-      assert b"Vuex.Store" in content
+      # Store should contain Vuex.createStore initialization (Vue 3)
+      assert b"Vuex.createStore" in content
 
   @pytest.mark.asyncio
   async def test_landing_page_renders(self, app):

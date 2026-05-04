@@ -22,46 +22,54 @@ After each baseweb migration task:
 
 ---
 
+## Unsorted
+
+- bug: apparent off-by-one selection highlight in CollectionView component
+- add warning when OAUTH_PROVIDER/OAUTH_CLIENT_ID aren't configured and disable login button
+- bug: accessing protected API endpoint fails. probably oatk needs to be upgraded to support async?
+```
+[2026-05-01 09:15:45 +0200] [baseweb-demo] [76906] [ERROR] Exception on request GET /api/protected/hello
+Traceback (most recent call last):
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/quart/app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/quart/app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/quart/app.py", line 1059, in handle_user_exception
+    raise error
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/quart/app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/quart/app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb/src/baseweb/__init__.py", line 366, in handler
+    result = await method_func(*args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/oatk/__init__.py", line 218, in wrapper
+    return self.execute_authenticated(f, None, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/oatk/__init__.py", line 182, in execute_authenticated
+    if "Authorization" not in request.headers:
+                              ^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/werkzeug/local.py", line 318, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xtof/Workspace/agentic/baseweb-demo/.venv/lib/python3.12/site-packages/werkzeug/local.py", line 519, in _get_current_object
+    raise RuntimeError(unbound_message) from None
+RuntimeError: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+```
+
 ## Backlog
 
-### Phase 1: Project Setup
+(currently none)
 
-- [ ] **task-1.1: Modern Python Project Setup**
-  - Create pyproject.toml with uv-compatible configuration
-  - Configure editable install to local baseweb
-  - Set up Python 3.11+ requirement
-  - Create .python-version file
-  - Acceptance: `uv sync` works, baseweb imported from local source
-
-### Phase 2: Flask to Quart Migration
-
-- [ ] **task-2.1: Migrate Main Entry Point**
-  - Update `__init__.py` for Quart compatibility
-  - Disable SocketIO handlers (pending baseweb task-3.3)
-  - Convert sync operations to async where needed
-  - Acceptance: Application starts without errors
-
-- [ ] **task-2.2: Migrate Index Page**
-  - `from flask import request` → `from quart import request`
-  - `from flask_restful import Resource` → `from baseweb import Resource`
-  - Convert Resource methods to async
-  - Add `await` to `request.get_json()` calls
-  - Disable SocketIO handlers temporarily
-  - Acceptance: Index page loads, REST endpoints work
-
-- [ ] **task-2.3: Migrate Protected Page**
-  - `from flask import Response` → `from quart import Response`
-  - `from flask_restful import Resource` → `from baseweb import Resource`
-  - Convert Resource methods to async
-  - Verify oatk integration still works
-  - Acceptance: Protected page and OAuth flow work
-
-- [ ] **task-2.4: Migrate CollectionView Component**
-  - `from flask import request, abort` → `from quart import request, abort`
-  - `from flask_restful import Resource` → `from baseweb import Resource`
-  - Convert Resource methods to async
-  - Add `await` to `request.args` access if needed
-  - Acceptance: CollectionView API endpoints work
+## Done
 
 ### Phase 3: WebSocket Re-enablement
 
@@ -78,12 +86,6 @@ After each baseweb migration task:
   - Verified Socket.IO client connectivity
   - All 26 tests pass
   - Acceptance: Frontend works correctly with async backend
-
-## In Progress
-
-(none)
-
-## Done
 
 ### Phase 2: Flask to Quart Migration
 

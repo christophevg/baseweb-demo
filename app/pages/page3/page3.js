@@ -22,7 +22,7 @@ var Page3 = {
   <v-card>
     <v-card-text>
       <div style="margin:20px">
-        <div style="margin:20px" v-html="$options.filters.syntaxHighlight(config, 800)"></div>
+        <div style="margin:20px" v-html="$filters.syntaxHighlight(config, 800)"></div>
       </div>
     </v-card-text>
   </v-card>     
@@ -30,7 +30,7 @@ var Page3 = {
 `,
   navigation: {
     section: "Pages",
-    icon:    "description",
+    icon:    "mdi-text-box",
     text:    "Page with config",
     path:    "/page3"
   },

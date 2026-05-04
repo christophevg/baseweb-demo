@@ -6,7 +6,7 @@ var Page1 = {
 `,
   navigation: {
     section: "Pages",
-    icon:    "description",
+    icon:    "mdi-text-box",
     text:    "Page with nothing",
     path:    "/page1"
   }

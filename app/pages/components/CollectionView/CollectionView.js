@@ -10,7 +10,7 @@ var CollectionViewDemo = {
                       sortBy="created"
                       :labels="model.labels"
                       :enrich="mark_johns">
-        <div style="margin:20px" v-html="$options.filters.syntaxHighlight(model.selected, 400)"></div>
+        <div style="margin:20px" v-html="$filters.syntaxHighlight(model.selected, 400)"></div>
       </CollectionView>
     </SourceView>
   </PageWithBanner>
@@ -18,7 +18,7 @@ var CollectionViewDemo = {
 `,
   navigation: {
     section: "Components",
-    icon:     "extension",
+    icon:     "mdi-puzzle",
     text:     "CollectionView",
     path:     "/components/CollectionView"
   },
