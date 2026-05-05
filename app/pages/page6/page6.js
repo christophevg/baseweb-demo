@@ -1,6 +1,3 @@
-// Vue 3 calendar example - using external calendar library
-// Note: Vuetify 3 Labs calendar requires special bundling
-// For now, display a placeholder message
 var Page6 = {
   template : `
 <Page>
@@ -12,24 +9,39 @@ var Page6 = {
         <v-card>
           <v-card-title>Calendar</v-card-title>
           <v-card-text>
-            <p class="text-grey">
-              The calendar component requires Vuetify Labs which needs special bundling.
-              This page will be updated with a calendar solution in a future update.
-            </p>
-            <p class="mt-4">
-              <strong>Events that would be shown:</strong>
-            </p>
-            <v-list>
-              <v-list-item v-for="event in events" :key="event.title + event.date">
-                <v-list-item-title>{{ event.title }}</v-list-item-title>
-                <v-list-item-subtitle>{{ event.date }} - {{ event.details }}</v-list-item-subtitle>
-              </v-list-item>
-            </v-list>
+            <v-calendar
+              ref="calendar"
+              v-model="focus"
+              :events="events"
+              event-overlap-mode="column"
+              event-overlap-threshold="30"
+            >
+              <template v-slot:event="{ event }">
+                <div class="pa-1" @click="showEvent(event)">
+                  <strong>{{ event.title }}</strong>
+                  <div v-if="event.details" style="font-size: 12px">{{ event.details }}</div>
+                </div>
+              </template>
+            </v-calendar>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
+
+  <v-dialog v-model="selectedOpen" max-width="400">
+    <v-card>
+      <v-card-title>{{ selectedEvent.title }}</v-card-title>
+      <v-card-text>
+        <div><strong>Date:</strong> {{ selectedEvent.start }}</div>
+        <div v-if="selectedEvent.end"><strong>End:</strong> {{ selectedEvent.end }}</div>
+        <div v-if="selectedEvent.details">{{ selectedEvent.details }}</div>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="selectedOpen = false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 
 </Page>
 `,
@@ -39,70 +51,54 @@ var Page6 = {
     text    : "Page with a calendar",
     path    : "/page6"
   },
-  computed: {
-    // convert the list of events into a map of lists keyed by date
-    eventsMap () {
-      const map = {}
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
-      return map
-    }
-  },
   methods: {
-    open (event) {
-      alert(event.title)
+    showEvent: function(event) {
+      this.selectedEvent = event;
+      this.selectedOpen = true;
     }
   },
   data: function() {
     return {
-      today: '2019-01-08',
+      focus: '2019-01-08',
+      selectedEvent: {},
+      selectedOpen: false,
       events: [
         {
           title: 'Vacation',
           details: 'Going to the beach!',
-          date: '2018-12-30',
-          open: false
-        },
-        {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2018-12-31',
-          open: false
-        },
-        {
-          title: 'Vacation',
-          details: 'Going to the beach!',
-          date: '2019-01-01',
-          open: false
+          start: '2018-12-30',
+          end: '2019-01-01',
+          color: 'blue'
         },
         {
           title: 'Meeting',
           details: 'Spending time on how we do not have enough time',
-          date: '2019-01-07',
-          open: false
+          start: '2019-01-07',
+          color: 'red'
         },
         {
           title: '30th Birthday',
           details: 'Celebrate responsibly',
-          date: '2019-01-03',
-          open: false
+          start: '2019-01-03',
+          color: 'green'
         },
         {
           title: 'New Year',
           details: 'Eat chocolate until you pass out',
-          date: '2019-01-01',
-          open: false
+          start: '2019-01-01',
+          color: 'purple'
         },
         {
           title: 'Conference',
           details: 'Mute myself the whole time and wonder why I am on this call',
-          date: '2019-01-21',
-          open: false
+          start: '2019-01-21',
+          color: 'orange'
         },
         {
           title: 'Hackathon',
-          details: 'Code like there is no tommorrow',
-          date: '2019-02-01',
-          open: false
+          details: 'Code like there is no tomorrow',
+          start: '2019-02-01',
+          color: 'pink'
         }
       ]
     }

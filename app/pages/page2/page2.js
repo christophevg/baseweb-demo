@@ -8,6 +8,7 @@ var Page2 = {
           <v-img
             src="/app/static/desert.jpg"
             aspect-ratio="2.75"
+            cover
           ></v-img>
 
           <v-card-title>

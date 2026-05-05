@@ -30,34 +30,36 @@ var ProcessDiagramDemo = {
 
     <v-card>
       <v-card-text>
-        <v-tabs>
-          <v-tab>Data</v-tab>
-          <v-tab>Component</v-tab>
-
-          <v-tabs-window>
-            <v-tab-item key="0" fluid>
-              <v-card>
-                <v-card-text>
-                  <div style="margin:20px">
-                    <code>data.process</code>
-                    <div style="margin-top:20px" v-html="$filters.syntaxHighlight(process, 800, 'json')"></div>
-                  </div>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-
-            <v-tab-item key="1" fluid>
-              <v-card>
-                <v-card-text>
-                  <div style="margin:20px">
-                    <code>ProcessDiagramDemoBody</code>
-                    <div style="margin-top:20px" v-html="$filters.syntaxHighlight(component, 800, 'javascript')"></div>
-                  </div>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-          </v-tabs-window>
+        <v-tabs v-model="tab">
+          <v-tab value="data">Data</v-tab>
+          <v-tab value="component">Component</v-tab>
         </v-tabs>
+
+        <v-divider></v-divider>
+
+        <v-tabs-window v-model="tab">
+          <v-window-item value="data" fluid>
+            <v-card>
+              <v-card-text>
+                <div style="margin:20px">
+                  <code>data.process</code>
+                  <div style="margin-top:20px" v-html="$filters.syntaxHighlight(process, 800, 'json')"></div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-window-item>
+
+          <v-window-item value="component" fluid>
+            <v-card>
+              <v-card-text>
+                <div style="margin:20px">
+                  <code>ProcessDiagramDemoBody</code>
+                  <div style="margin-top:20px" v-html="$filters.syntaxHighlight(component, 800, 'javascript')"></div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-window-item>
+        </v-tabs-window>
       </v-card-text>
     </v-card>
 
@@ -82,6 +84,7 @@ var ProcessDiagramDemo = {
   },
   data: function() {
     return {
+      tab: "data",
       component : "",
       process : {
         sequence : [
