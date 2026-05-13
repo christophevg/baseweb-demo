@@ -10,38 +10,9 @@ logger = logging.getLogger(__name__)
 load_dotenv(find_dotenv())
 load_dotenv(find_dotenv(".env.local"))
 
-# setup logging infrastructure
-
-LOG_LEVEL = os.environ.get("LOG_LEVEL") or "INFO"
-FORMAT  = "[%(asctime)s] [%(name)s] [%(process)d] [%(levelname)s] %(message)s"
-DATEFMT = "%Y-%m-%d %H:%M:%S %z"
-
-logging.basicConfig(level=LOG_LEVEL, format=FORMAT, datefmt=DATEFMT)
-formatter = logging.Formatter(FORMAT, DATEFMT)
-logging.getLogger().handlers[0].setFormatter(formatter)
-
-# "silence" lower-level modules
-for module in [
-  "gunicorn.error",
-  "pymongo.serverSelection",
-  "engineio.client", "engineio.server", "socketio.client", "socketio.server",
-  "urllib3"
-]:
-  module_logger = logging.getLogger(module)
-  module_logger.setLevel(logging.WARN)
-  if len(module_logger.handlers) > 0:
-    module_logger.handlers[0].setFormatter(formatter)
-
-# all set up, now get our server
-
-# you can simply use the default, shared baseweb server instance
-# from baseweb import server
-
-# or create a personal instance
+# create a baseweb instance
 from baseweb import Baseweb
-
 server = Baseweb("baseweb-demo")
-server.log_config()
 
 def authenticator(scope, request, *args, **kwargs):
   logger.debug(f"👀 scope:{scope} / request:{str(request)} / args:{str(args)} / kwargs:{str(kwargs)}")
@@ -83,3 +54,5 @@ logger.info("✅ demo is ready")
 
 # ASGI app entry point (wraps Quart + Socket.IO)
 asgi_app = server._asgi_app
+
+server.log_config()
