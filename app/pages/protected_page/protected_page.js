@@ -11,7 +11,7 @@ var ProtectedPage = {
     account and your name will show up and API calls can be made succesfully.
 
   </p>
-  
+
   <p>
 
     The setup requires two environment variables: <code>OAUTH_PROVIDER</code>,
@@ -28,11 +28,11 @@ var ProtectedPage = {
     Welcome... {{ user.name }}! You are now authenticated.
     <v-btn @click="try_hello()">access protected API</v-btn>
     <v-btn @click="logout()">log out</v-btn>
+    <div id="output"></div>
   </p>
   <p v-else>
     <v-btn @click="try_hello()">access protected API</v-btn>
     <v-btn @click="login()">log in using Google...</v-btn>
-    <div id="output"></div>
   </p>
 
 </Page>
@@ -69,11 +69,10 @@ var ProtectedPage = {
         $("#output").text("");
       });
     },
-    try_hello: function() {
-      oatk.http.getJSON("/api/protected/hello", function(result) {
+    try_hello: function () {
+      oatk.http.getJSON("/api/protected/hello", function (result) {
         $("#output").text(JSON.stringify(result));
       }, function(result) {
-        console.log(result);
         if(result.status == 403) {
           $("#output").text("You were authenticated by Google, yet you don't have the correct claims.");
         } else if(result.status == 401) {
