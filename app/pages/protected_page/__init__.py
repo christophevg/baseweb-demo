@@ -2,7 +2,7 @@ import os
 
 import oatk.js
 from baseweb import Resource
-from oatk import OAuthToolkit
+from oatk import AsyncOAuthToolkit
 from quart import Response
 
 from ... import server
@@ -28,26 +28,38 @@ server.register_external_script("/oatk.js")
 oauth_provider = os.environ.get("OAUTH_PROVIDER")
 oauth_client_id = os.environ.get("OAUTH_CLIENT_ID")
 
+# Create oauth toolkit at module level (configured during startup)
+oauth = AsyncOAuthToolkit()
+
+
+async def init_oauth():
+  """Initialize OAuth toolkit during app startup."""
+  if oauth_provider and oauth_client_id:
+    oauth.with_client_id(oauth_client_id)
+    await oauth.using_provider(oauth_provider)
+
+
+class HelloWorld(Resource):
+  @oauth.authenticated
+  async def get(self):
+    return {"message": "hello protected world"}
+
+
 if oauth_provider and oauth_client_id:
-  oauth = OAuthToolkit()
-  oauth.using_provider(oauth_provider)
-  oauth.with_client_id(oauth_client_id)
-
-  class HelloWorld(Resource):
-    @oauth.authenticated
-    async def get(self):
-      return {
-        "message": "hello protected world"
-      }
-
   server.add_resource(HelloWorld, "/api/protected/hello")
 else:
   # OAuth not configured - create a placeholder resource
-  class HelloWorld(Resource):
+  class HelloWorldPlaceholder(Resource):
     async def get(self):
       return {
         "message": "OAuth not configured",
         "hint": "Set OAUTH_PROVIDER and OAUTH_CLIENT_ID environment variables"
       }
 
-  server.add_resource(HelloWorld, "/api/protected/hello")
+  server.add_resource(HelloWorldPlaceholder, "/api/protected/hello")
+
+
+# Register startup hook to initialize OAuth
+@server.before_serving
+async def setup_oauth():
+  await init_oauth()
