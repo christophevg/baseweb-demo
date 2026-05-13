@@ -41,8 +41,8 @@ var LineChartDemo = {
   methods: {
     add_random_data: function() {
       var num = Math.floor(Math.random() * (100 - 5 + 1) + 5);
-      this.values.shift()
       this.values.push(num);
+      this.values.shift();
     },
     toggle_adding: function() {
       if(this.adding) {
@@ -72,7 +72,7 @@ var LineChartDemo = {
           {
             label: "My Data",
             backgroundColor: "#f87979",
-            data: this.values
+            data: this.values.slice() // Create a copy to break reactivity chain
           }
         ]
       }
