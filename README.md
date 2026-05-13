@@ -107,21 +107,22 @@ baseweb-demo/
 └── .env                        # Environment configuration
 ```
 
-## Running Against Local Baseweb
+## Dependencies
 
-To develop against a local baseweb checkout:
+This demo uses published packages from PyPI:
+
+- **baseweb** `>=0.5.0` - Async Quart-based web framework
+- **oatk** `>=0.2.1` - OAuth toolkit with async support
+
+## Running Against Local Packages
+
+To develop against local checkouts of baseweb or oatk:
 
 ```console
 % cd baseweb-demo
 % uv add --editable ../baseweb
+% uv add --editable ../oatk
 % uv sync
-```
-
-The `pyproject.toml` already includes this configuration:
-
-```toml
-[tool.uv.sources]
-baseweb = { path = "../baseweb", editable = true }
 ```
 
 ## Environment Variables
@@ -166,7 +167,7 @@ The `legacy` tag points to the last commit compatible with the synchronous Flask
 - Uses `flask` and `flask-restful` imports
 - Synchronous request handlers
 - Flask-SocketIO with eventlet
-- Compatible with baseweb `< 0.4.0`
+- Compatible with baseweb `< 0.5.0`
 
 To migrate to the modern async Quart-based version, see the migration guide above.
 
