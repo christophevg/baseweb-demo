@@ -23,9 +23,6 @@ dev = [
   "ruff>=0.1.0",
 ]
 
-[tool.uv.sources]
-baseweb = { path = "../baseweb", editable = true }
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
