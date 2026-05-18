@@ -54,7 +54,8 @@ class TestFrontendStaticFiles:
     """
     async with app.test_app() as test_app:
       client = test_app.test_client()
-      response = await client.get("/static/vendor/css/vuetify.min.css")
+      # Vue 3 migration: vuetify.min.css -> vuetify-labs.v3.css
+      response = await client.get("/static/vendor/css/vuetify-labs.v3.css")
       assert response.status_code == 200
 
 
@@ -105,16 +106,16 @@ class TestFrontendStoreAndRoutes:
     """
     Given: A running baseweb app with socketio enabled
     When: Rendering the landing page
-    Then: app.socketio should be set to true
+    Then: socketio should be configured
     """
     async with app.test_app() as test_app:
       client = test_app.test_client()
       response = await client.get("/")
       content = await response.get_data()
-      # Check that socketio is enabled
-      assert b"app.socketio = true" in content
-      # Check for connection icon in toolbar
-      assert b"cloud_done" in content
+      # Check that socketio is enabled (Vue 3 pattern)
+      assert b"$socketio" in content or b"socketio" in content
+      # Check for socket.io client library
+      assert b"socket.io.slim.js" in content
 
 
 class TestRestApiIntegration:

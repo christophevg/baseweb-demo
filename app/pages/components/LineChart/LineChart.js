@@ -1,36 +1,34 @@
 var LineChartDemo = {
   template : `
-<PageWithStatus>
-  <PageWithBanner>
+<Page banner status>
 
-    <h1>Line Chart</h1>
+  <h1>Line Chart</h1>
 
-    <v-card>
-      <v-card-text>
-        <LineChart :chartData="chartdata" :options="options"/>
-      </v-card-text>
-    </v-card>
+  <v-card>
+    <v-card-text>
+      <LineChart :chartData="chartdata" :options="options"/>
+    </v-card-text>
+  </v-card>
 
-    <v-card>
-      <v-card-text>
-        <v-row justify="center">
-          <v-btn @click="add_random_data()" class="ma-2">add a data point</v-btn>
-          <v-btn @click="toggle_adding()" class="ma-2">{{ toggle_label }} adding data points</v-btn>
-        </v-row>
-      </v-card-text>
-    </v-card>
+  <v-card>
+    <v-card-text>
+      <v-row justify="center">
+        <v-btn @click="add_random_data()" class="ma-2">add a data point</v-btn>
+        <v-btn @click="toggle_adding()" class="ma-2">{{ toggle_label }} adding data points</v-btn>
+      </v-row>
+    </v-card-text>
+  </v-card>
 
-    <v-card>
-      <v-card-text>
-        <div style="margin:20px">
-          <code>data.values</code>
-          <div style="margin-top:20px" v-html="$filters.syntaxHighlight(values, 800)"></div>
-        </div>
-      </v-card-text>
-    </v-card>
+  <v-card>
+    <v-card-text>
+      <div style="margin:20px">
+        <code>data.values</code>
+        <div style="margin-top:20px" v-html="$filters.syntaxHighlight(values, 800)"></div>
+      </div>
+    </v-card-text>
+  </v-card>
 
-  </PageWithBanner>
-</PageWithStatus>
+</Page>
 `,
   navigation: {
     section: "Components",

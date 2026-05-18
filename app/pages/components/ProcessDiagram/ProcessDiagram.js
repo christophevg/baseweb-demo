@@ -1,70 +1,68 @@
 var ProcessDiagramDemo = {
   template : `
-<PageWithStatus>
-  <PageWithBanner>
+<Page>
 
-    <h1>Process Diagram</h1>
+  <h1>Process Diagram</h1>
 
-    <p>
+  <p>
 
-      This is a simple wrapper around the wonderful work found at
-      <a href="https://www.cssscript.com/process-flow-diagram/">
-        https://www.cssscript.com/process-flow-diagram/
-      </a>.
+    This is a simple wrapper around the wonderful work found at
+    <a href="https://www.cssscript.com/process-flow-diagram/">
+      https://www.cssscript.com/process-flow-diagram/
+    </a>.
 
-    </p>
+  </p>
 
-    <p>
+  <p>
 
-        Steps in the process can be specified as a <code>title</code> and some
-        <code>html</code> or a <code>body</code> with a custom
-        <code>component</code> and some <code>data</code>.
+      Steps in the process can be specified as a <code>title</code> and some
+      <code>html</code> or a <code>body</code> with a custom
+      <code>component</code> and some <code>data</code>.
 
-    </p>
+  </p>
 
-    <v-card>
-      <v-card-text>
-        <ProcessDiagram :diagram="process"/>
-      </v-card-text>
-    </v-card>
+  <v-card>
+    <v-card-text>
+      <ProcessDiagram :diagram="process"/>
+    </v-card-text>
+  </v-card>
 
-    <v-card>
-      <v-card-text>
-        <v-tabs v-model="tab">
-          <v-tab value="data">Data</v-tab>
-          <v-tab value="component">Component</v-tab>
-        </v-tabs>
+  <v-card>
+    <v-card-text>
+      <v-tabs v-model="tab">
+        <v-tab value="data">Data</v-tab>
+        <v-tab value="component">Component</v-tab>
+      </v-tabs>
 
-        <v-divider></v-divider>
+      <v-divider></v-divider>
 
-        <v-tabs-window v-model="tab">
-          <v-window-item value="data" fluid>
-            <v-card>
-              <v-card-text>
-                <div style="margin:20px">
-                  <code>data.process</code>
-                  <div style="margin-top:20px" v-html="$filters.syntaxHighlight(process, 800, 'json')"></div>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-window-item>
+      <v-tabs-window v-model="tab">
+        <v-window-item value="data" fluid>
+          <v-card>
+            <v-card-text>
+              <div style="margin:20px">
+                <code>data.process</code>
+                <div style="margin-top:20px" v-html="$filters.syntaxHighlight(process, 800, 'json')"></div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
 
-          <v-window-item value="component" fluid>
-            <v-card>
-              <v-card-text>
-                <div style="margin:20px">
-                  <code>ProcessDiagramDemoBody</code>
-                  <div style="margin-top:20px" v-html="$filters.syntaxHighlight(component, 800, 'javascript')"></div>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-window-item>
-        </v-tabs-window>
-      </v-card-text>
-    </v-card>
+        <v-window-item value="component" fluid>
+          <v-card>
+            <v-card-text>
+              <div style="margin:20px">
+                <code>ProcessDiagramDemoBody</code>
+                <div style="margin-top:20px" v-html="$filters.syntaxHighlight(component, 800, 'javascript')"></div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
+      </v-tabs-window>
+    </v-card-text>
+  </v-card>
 
-  </PageWithBanner>
-</PageWithStatus>
+</Page>
 `,
   navigation: {
     section: "Components",

@@ -1,20 +1,18 @@
 var CollectionViewDemo = {
   template : `
-<PageWithStatus>
-  <PageWithBanner>
-    <SourceView src="/app/CollectionView.js">
-      <h1>CollectionView</h1>
-      <CollectionView topic="demo" :headers="headers" resource="/api/collection"
-                      id="name" :selected="model.selected" @select="select"
-                      actions="delete"
-                      sortBy="created"
-                      :labels="model.labels"
-                      :enrich="mark_johns">
-        <div style="margin:20px" v-html="$filters.syntaxHighlight(model.selected, 400)"></div>
-      </CollectionView>
-    </SourceView>
-  </PageWithBanner>
-</PageWithStatus>
+<Page banner status>
+  <SourceView src="/app/CollectionView.js">
+    <h1>CollectionView</h1>
+    <CollectionView topic="demo" :headers="headers" resource="/api/collection"
+                    id="name" :selected="model.selected" @select="select"
+                    actions="delete"
+                    sortBy="created"
+                    :labels="model.labels"
+                    :enrich="mark_johns">
+      <div style="margin:20px" v-html="$filters.syntaxHighlight(model.selected, 400)"></div>
+    </CollectionView>
+  </SourceView>
+</Page>
 `,
   navigation: {
     section: "Components",
