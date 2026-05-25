@@ -1,5 +1,9 @@
 # baseweb demo
 
+[![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)][python]
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)][uv]
+[![Agentic](https://img.shields.io/badge/workflow-agentic-blueviolet?style=flat-square)](https://christophe.vg/about/Agentic-Workflow)
+
 This repository is a demo application for [baseweb](https://github.com/christophevg/baseweb), showcasing its features and demonstrating best practices for building async web applications with Quart.
 
 ## Features Demonstrated
@@ -178,3 +182,6 @@ To migrate to the modern async Quart-based version, see the migration guide abov
 ## License
 
 MIT License - See [LICENSE](LICENSE) for details.
+
+[python]: https://python.org/
+[uv]: https://docs.astral.sh/uv/
