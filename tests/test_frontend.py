@@ -14,6 +14,7 @@ class TestFrontendStaticFiles:
   def app(self):
     """Create test app."""
     from app import server
+
     server.config["TESTING"] = True
     return server
 
@@ -66,6 +67,7 @@ class TestFrontendStoreAndRoutes:
   def app(self):
     """Create test app."""
     from app import server
+
     server.config["TESTING"] = True
     return server
 
@@ -125,6 +127,7 @@ class TestRestApiIntegration:
   def app(self):
     """Create test app."""
     from app import server
+
     server.config["TESTING"] = True
     return server
 
@@ -152,9 +155,7 @@ class TestRestApiIntegration:
     async with app.test_app() as test_app:
       client = test_app.test_client()
       response = await client.post(
-        "/api/hello",
-        json={"name": "Test"},
-        headers={"Content-Type": "application/json"}
+        "/api/hello", json={"name": "Test"}, headers={"Content-Type": "application/json"}
       )
       assert response.status_code == 200
       data = await response.get_json()
@@ -170,9 +171,7 @@ class TestRestApiIntegration:
     async with app.test_app() as test_app:
       client = test_app.test_client()
       response = await client.post(
-        "/api/hello",
-        json={"name": "Test"},
-        headers={"Content-Type": "application/json"}
+        "/api/hello", json={"name": "Test"}, headers={"Content-Type": "application/json"}
       )
       assert response.status_code == 200
       content_type = response.headers.get("content-type", "")
@@ -186,6 +185,7 @@ class TestSocketIOIntegration:
   def app(self):
     """Create test app."""
     from app import server
+
     server.config["TESTING"] = True
     return server
 
@@ -206,7 +206,7 @@ class TestSocketIOIntegration:
     When: Checking ASGI app
     Then: Should be socketio.ASGIApp wrapping Quart
     """
-    import socketio
+
     assert isinstance(app._asgi_app, socketio.ASGIApp)
     # ASGIApp wraps the socketio server internally
     assert app._sio is not None
@@ -219,6 +219,7 @@ class TestComponentRegistration:
   def app(self):
     """Create test app."""
     from app import server
+
     server.config["TESTING"] = True
     return server
 

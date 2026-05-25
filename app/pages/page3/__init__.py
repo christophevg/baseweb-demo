@@ -6,7 +6,4 @@ from ... import server
 server.register_component("page3.js", os.path.dirname(__file__), route="/page3")
 
 # add some additional settings
-server.settings["baseweb-demo"] = {
-  "a few" : "app specific",
-  "configuration" : "settings"
-}
+server.settings["baseweb-demo"] = {"a few": "app specific", "configuration": "settings"}

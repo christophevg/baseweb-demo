@@ -11,10 +11,12 @@ logger = logging.getLogger(__name__)
 # register the Vue component for the UI
 server.register_component("index.js", os.path.dirname(__file__))
 
+
 # log all messages both to logging infrastructure and connected clients
 async def log(msg):
   logger.info(msg)
   await server.socketio.emit("log", msg)
+
 
 # Socket.IO event handlers (python-socketio with ASGI)
 @server.socketio.on("hello")
@@ -22,6 +24,7 @@ async def log(msg):
 async def on_hello(sid, name):
   await log(f"received hello from {name} ({sid}) via socketio")
   return f"Hello {name} from socketio!"
+
 
 # REST resource to handle requests from the UI
 class Hello(Resource):
@@ -39,5 +42,6 @@ class Hello(Resource):
     name = json_data["name"]
     await log(f"received hello from {name} via rest/post")
     return {"message": f"Hello {name} from REST/POST"}
+
 
 server.add_resource(Hello, "/api/hello")

@@ -16,33 +16,39 @@ def random_date_between(start, end):
   int_delta = (delta.days * 24 * 3600) + delta.seconds
   return start + timedelta(seconds=random.randrange(int_delta))
 
-def random_date():
-  return random_date_between(datetime.now(), datetime.now()+timedelta(days=1))
 
-server.register_component("CollectionView.js", os.path.dirname(__file__), route="/components/CollectionView")
+def random_date():
+  return random_date_between(datetime.now(), datetime.now() + timedelta(days=1))
+
+
+server.register_component(
+  "CollectionView.js", os.path.dirname(__file__), route="/components/CollectionView"
+)
 
 # set up an in-memory collection of random names and provide a resource to
 # access them with query arguments, emulating a MongoDB collection
 
-first_names = [ "John", "Andy", "Joe" ]
-last_names  = [ "Johnson", "Smith", "Williams" ]
+first_names = ["John", "Andy", "Joe"]
+last_names = ["Johnson", "Smith", "Williams"]
 data = [
   {
-    "id"      : index + 1,
-    "name"    : random.choice(first_names) + " " + random.choice(last_names),
-    "created" : random_date().isoformat(),
-    "updated" : random_date().isoformat()
-  } for index in range(100)
+    "id": index + 1,
+    "name": random.choice(first_names) + " " + random.choice(last_names),
+    "created": random_date().isoformat(),
+    "updated": random_date().isoformat(),
+  }
+  for index in range(100)
 ]
+
 
 class Collection(Resource):
   @server.authenticated("app.collection.get")
   async def get(self):
     start = int(request.args.get("start", 0))
     limit = int(request.args.get("limit", 5))
-    sort  = request.args.get("sort", None)
+    sort = request.args.get("sort", None)
     order = request.args.get("order", "asc")
-    name  = request.args.get("name", None)
+    name = request.args.get("name", None)
 
     selection = data
     if name:
@@ -52,10 +58,7 @@ class Collection(Resource):
     if order == "desc":
       selection.reverse()
 
-    return {
-      "content"       : selection[start:start+limit],
-      "totalElements" : len(data)
-    }
+    return {"content": selection[start : start + limit], "totalElements": len(data)}
 
   @server.authenticated("app.collection.post")
   async def post(self):
@@ -71,5 +74,6 @@ class Collection(Resource):
       return "ok"
     else:
       abort(404)
+
 
 server.add_resource(Collection, "/api/collection")

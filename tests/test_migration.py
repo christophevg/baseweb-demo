@@ -1,4 +1,5 @@
 """Tests for Flask to Quart migration."""
+
 import inspect
 from pathlib import Path
 
@@ -12,6 +13,7 @@ class TestMigration:
     """Test that the app imports without errors."""
     try:
       from app import server
+
       assert server is not None
       assert server.name == "baseweb-demo"
     except ImportError as e:
@@ -53,7 +55,9 @@ class TestMigration:
   def test_protected_page_imports_quart_response(self):
     """Test that protected_page imports from Quart, not Flask."""
     # Check source file for imports
-    protected_file = Path(__file__).parent.parent / "app" / "pages" / "protected_page" / "__init__.py"
+    protected_file = (
+      Path(__file__).parent.parent / "app" / "pages" / "protected_page" / "__init__.py"
+    )
     content = protected_file.read_text()
 
     assert "from quart import Response" in content
@@ -62,7 +66,14 @@ class TestMigration:
   def test_collection_view_imports_quart(self):
     """Test that CollectionView imports from Quart, not Flask."""
     # Check source file for imports
-    collection_file = Path(__file__).parent.parent / "app" / "pages" / "components" / "CollectionView" / "__init__.py"
+    collection_file = (
+      Path(__file__).parent.parent
+      / "app"
+      / "pages"
+      / "components"
+      / "CollectionView"
+      / "__init__.py"
+    )
     content = collection_file.read_text()
 
     assert "from quart import" in content
@@ -72,8 +83,17 @@ class TestMigration:
     """Test that Resource classes import from baseweb, not flask_restful."""
     # Check source files for imports
     index_file = Path(__file__).parent.parent / "app" / "pages" / "index" / "__init__.py"
-    protected_file = Path(__file__).parent.parent / "app" / "pages" / "protected_page" / "__init__.py"
-    collection_file = Path(__file__).parent.parent / "app" / "pages" / "components" / "CollectionView" / "__init__.py"
+    protected_file = (
+      Path(__file__).parent.parent / "app" / "pages" / "protected_page" / "__init__.py"
+    )
+    collection_file = (
+      Path(__file__).parent.parent
+      / "app"
+      / "pages"
+      / "components"
+      / "CollectionView"
+      / "__init__.py"
+    )
 
     for file in [index_file, protected_file, collection_file]:
       content = file.read_text()
@@ -85,6 +105,6 @@ class TestMigration:
     content = index_file.read_text()
 
     # SocketIO handlers should be enabled with async pattern
-    assert "@server.socketio.on(\"hello\")" in content, "SocketIO hello handler should be enabled"
+    assert '@server.socketio.on("hello")' in content, "SocketIO hello handler should be enabled"
     assert "async def on_hello" in content, "Handler should be async"
     assert "sid" in content, "Handler should have sid parameter"

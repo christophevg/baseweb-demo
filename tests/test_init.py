@@ -9,6 +9,7 @@ class TestMainEntryPoint:
   def test_server_can_be_imported(self):
     """Server instance can be imported without errors."""
     from app import server
+
     assert server is not None
     assert server.name == "baseweb-demo"
 
@@ -27,6 +28,7 @@ class TestMainEntryPoint:
   def test_authenticator_is_set(self):
     """Verify the authenticator is configured."""
     from app import server
+
     assert server.authenticator is not None
     assert callable(server.authenticator)
 
@@ -36,8 +38,8 @@ class TestMainEntryPoint:
     content = init_file.read_text()
 
     # Check that socketio decorators are NOT commented out
-    assert "@server.socketio.on(\"connect\")" in content
-    assert "@server.socketio.on(\"disconnect\")" in content
+    assert '@server.socketio.on("connect")' in content
+    assert '@server.socketio.on("disconnect")' in content
 
     # Verify async handlers
     assert "async def on_connect" in content

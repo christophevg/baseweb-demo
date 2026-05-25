@@ -12,14 +12,16 @@ server.register_component("protected_page.js", os.path.dirname(__file__), route=
 
 # expose discovery url and client_id settings loaded from from env
 server.settings["oauth"] = {
-  "provider" : os.environ.get("OAUTH_PROVIDER"),
-  "client_id": os.environ.get("OAUTH_CLIENT_ID")
+  "provider": os.environ.get("OAUTH_PROVIDER"),
+  "client_id": os.environ.get("OAUTH_CLIENT_ID"),
 }
+
 
 # route for oatk.js from the oatk package
 @server.route("/oatk.js")
 async def oatk_script():
   return Response(oatk.js.as_src(), mimetype="application/javascript")
+
 
 # and have it included in the HTML
 server.register_external_script("/oatk.js")
@@ -53,7 +55,7 @@ else:
     async def get(self):
       return {
         "message": "OAuth not configured",
-        "hint": "Set OAUTH_PROVIDER and OAUTH_CLIENT_ID environment variables"
+        "hint": "Set OAUTH_PROVIDER and OAUTH_CLIENT_ID environment variables",
       }
 
   server.add_resource(HelloWorldPlaceholder, "/api/protected/hello")

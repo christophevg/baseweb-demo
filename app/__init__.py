@@ -12,29 +12,37 @@ load_dotenv(find_dotenv(".env.local"))
 
 # create a baseweb instance
 from baseweb import Baseweb
+
 server = Baseweb("baseweb-demo")
 
+
 def authenticator(scope, request, *args, **kwargs):
-  logger.debug(f"👀 scope:{scope} / request:{str(request)} / args:{str(args)} / kwargs:{str(kwargs)}")
+  logger.debug(
+    f"👀 scope:{scope} / request:{str(request)} / args:{str(args)} / kwargs:{str(kwargs)}"
+  )
   return True
 
+
 server.authenticator = authenticator
+
 
 # Socket.IO event handlers (python-socketio with ASGI)
 @server.socketio.on("connect")
 async def on_connect(sid, environ):
   logger.info(f"connect: {sid}")
 
+
 @server.socketio.on("disconnect")
 async def on_disconnect(sid):
   logger.info(f"disconnect: {sid}")
 
-HERE       = Path(__file__).resolve().parent
+
+HERE = Path(__file__).resolve().parent
 COMPONENTS = HERE / "components"
 
-server.register_component("app.js",        HERE)
+server.register_component("app.js", HERE)
 server.register_component("SourceView.js", COMPONENTS)
-server.register_component("logo.js",       COMPONENTS)
+server.register_component("logo.js", COMPONENTS)
 
 server.register_stylesheet("demo.css", HERE / "static")
 
